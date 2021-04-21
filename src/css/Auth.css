@@ -1,0 +1,22 @@
+.auth-form {
+  width: 45rem;
+  max-width: 80%;
+  margin: 5rem auto;
+}
+
+.form-control label,
+.form-control input {
+  width: 100%;
+  display: block;
+}
+
+.form-control {
+  margin-bottom: 1rem;
+}
+.form-control label {
+  margin-bottom: 1rem;
+}
+.form-actions button {
+  margin: 0.5rem 1rem;
+  cursor: pointer;
+}
