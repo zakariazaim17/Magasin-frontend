@@ -6,6 +6,7 @@ import MyProducts from "./pages/MyProducts";
 import Categories from "./pages/Categories.js";
 import "./css/App.css";
 import MainNavigation from "./Navigation/MainNavigation.js";
+import Authcontext from "./context/AuthContext.js";
 import {
   BrowserRouter as Router,
   Switch,
@@ -13,23 +14,57 @@ import {
   BrowserRouter,
   Redirect,
 } from "react-router-dom";
-import React from "react";
-
+import React, { useState } from "react";
 function App() {
+  const [Clientdata, setClientdata] = useState({
+    token: null,
+    id: null,
+  });
+
+  const login = (token, id) => {
+    setClientdata({ token: token, id: id });
+  };
+
+  const logout = () => {
+    setClientdata({ token: null, id: null });
+  };
+
+  //const ServerURL = "http://localhost:3004/graphql";
   return (
     <BrowserRouter>
       <React.Fragment>
-        <MainNavigation />
-        <main className="main-content">
-          <Switch>
-            <Redirect from="/" to="/auth" exact />
-            <Route path="/categories" component={Categories} />
-            <Route path="/auth" component={Auth} />
-            <Route path="/myproducts" component={MyProducts} />
-            <Route path="/bidings" component={Bidings} />
-            <Route path="/profile" component={Profile} />
-          </Switch>
-        </main>
+        <Authcontext.Provider
+          value={{
+            token: Clientdata.token,
+            id: Clientdata.id,
+            login: login,
+            logout: logout,
+          }}
+        >
+          <MainNavigation />
+          <main className="main-content">
+            <Switch>
+              {!Clientdata.token && <Redirect from="/" to="/auth" exact />}
+              {Clientdata.token && <Redirect from="/" to="/categories" exact />}
+              {Clientdata.token && (
+                <Redirect from="/auth" to="/categories" exact />
+              )}
+              <Route path="/auth" component={Auth} />
+              {Clientdata.token && (
+                <Route path="/categories" component={Categories} />
+              )}
+              {Clientdata.token && (
+                <Route path="/myproducts" component={MyProducts} />
+              )}
+              {Clientdata.token && (
+                <Route path="/bidings" component={Bidings} />
+              )}
+              {Clientdata.token && (
+                <Route path="/profile" component={Profile} />
+              )}
+            </Switch>
+          </main>
+        </Authcontext.Provider>
       </React.Fragment>
     </BrowserRouter>
   );
