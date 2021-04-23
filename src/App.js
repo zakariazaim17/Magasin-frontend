@@ -5,8 +5,10 @@ import Profile from "./pages/Profile.js";
 import MyProducts from "./pages/MyProducts";
 import Categories from "./pages/Categories.js";
 import "./css/App.css";
+import KK from "./pages/khrya.js";
 import MainNavigation from "./Navigation/MainNavigation.js";
 import Authcontext from "./context/AuthContext.js";
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -15,6 +17,7 @@ import {
   Redirect,
 } from "react-router-dom";
 import React, { useState } from "react";
+
 function App() {
   const [Clientdata, setClientdata] = useState({
     token: null,
@@ -31,7 +34,7 @@ function App() {
 
   //const ServerURL = "http://localhost:3004/graphql";
   return (
-    <BrowserRouter>
+    <Router>
       <React.Fragment>
         <Authcontext.Provider
           value={{
@@ -45,17 +48,25 @@ function App() {
           <main className="main-content">
             <Switch>
               {!Clientdata.token && <Redirect from="/" to="/auth" exact />}
+              {!Clientdata.token && (
+                <Redirect from="/categories" to="/auth" exact />
+              )}
+
               {Clientdata.token && <Redirect from="/" to="/categories" exact />}
+
               {Clientdata.token && (
                 <Redirect from="/auth" to="/categories" exact />
               )}
               <Route path="/auth" component={Auth} />
               {Clientdata.token && (
-                <Route path="/categories" component={Categories} />
+                <Route path="/categories" component={Categories} exact />
               )}
               {Clientdata.token && (
                 <Route path="/myproducts" component={MyProducts} />
               )}
+
+              <Route path="/categories/:id" component={KK} />
+
               {Clientdata.token && (
                 <Route path="/bidings" component={Bidings} />
               )}
@@ -66,8 +77,14 @@ function App() {
           </main>
         </Authcontext.Provider>
       </React.Fragment>
-    </BrowserRouter>
+    </Router>
   );
 }
 
 export default App;
+
+/*
+render={(props) => {
+                  <KK id={props.match.params.id} />;
+                }} 
+                */

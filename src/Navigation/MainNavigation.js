@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import "./MainNAvigation.css";
 import AuthContext from "../context/AuthContext.js";
 
 const MainNavigation = (props) => {
+  const tokeen = localStorage.getItem("ClientToken");
   return (
     <AuthContext.Consumer>
       {(context) => {
@@ -24,6 +25,9 @@ const MainNavigation = (props) => {
                   </li>
                   <li>
                     <NavLink to="/profile">Profile</NavLink>
+                  </li>
+                  <li>
+                    <button onClick={context.logout}>Logout</button>
                   </li>
                 </ul>
               )}

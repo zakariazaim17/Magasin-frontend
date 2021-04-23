@@ -28,13 +28,15 @@
 .main-navigation_item li {
   margin: 0 1rem;
 }
-.main-navigation_item a {
+.main-navigation_item a,
+.main-navigation_item button {
   text-decoration: none;
   color: rgb(15, 15, 14);
 }
 
 .main-navigation_item a:hover,
 .main-navigation_item a:active,
-.main-navigation_item a.active {
+.main-navigation_item a.active,
+.main-navigation_item button:hover {
   color: orange;
 }

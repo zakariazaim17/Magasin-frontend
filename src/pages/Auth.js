@@ -62,6 +62,7 @@ const Auth = () => {
 
       if (resultUser.data.login.token) {
         context.login(resultUser.data.login.token, resultUser.data.login.id);
+        localStorage.setItem("ClientToken", resultUser.data.login.token);
       }
     } catch (e) {
       console.log(e.message);
