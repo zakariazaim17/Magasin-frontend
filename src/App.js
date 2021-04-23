@@ -5,9 +5,10 @@ import Profile from "./pages/Profile.js";
 import MyProducts from "./pages/MyProducts";
 import Categories from "./pages/Categories.js";
 import "./css/App.css";
-import KK from "./pages/khrya.js";
+import GeneralProducts from "./pages/GeneralProducts.js";
 import MainNavigation from "./Navigation/MainNavigation.js";
 import Authcontext from "./context/AuthContext.js";
+import Welcome from "./pages/Welcome.js";
 
 import {
   BrowserRouter as Router,
@@ -19,6 +20,7 @@ import {
 import React, { useState } from "react";
 
 function App() {
+  const ClientToken = localStorage.getItem("ClientToken");
   const [Clientdata, setClientdata] = useState({
     token: null,
     id: null,
@@ -47,32 +49,25 @@ function App() {
           <MainNavigation />
           <main className="main-content">
             <Switch>
-              {!Clientdata.token && <Redirect from="/" to="/auth" exact />}
-              {!Clientdata.token && (
-                <Redirect from="/categories" to="/auth" exact />
-              )}
+              {!ClientToken && <Redirect from="/categories" to="/auth" />}
+              {!ClientToken && <Redirect from="/" to="/auth" exact />}
 
-              {Clientdata.token && <Redirect from="/" to="/categories" exact />}
+              {ClientToken && <Redirect from="/" to="/categories" exact />}
 
-              {Clientdata.token && (
-                <Redirect from="/auth" to="/categories" exact />
-              )}
+              {ClientToken && <Redirect from="/auth" to="/categories" exact />}
               <Route path="/auth" component={Auth} />
-              {Clientdata.token && (
+              {ClientToken && (
                 <Route path="/categories" component={Categories} exact />
               )}
-              {Clientdata.token && (
+              {ClientToken && (
                 <Route path="/myproducts" component={MyProducts} />
               )}
-
-              <Route path="/categories/:id" component={KK} />
-
-              {Clientdata.token && (
-                <Route path="/bidings" component={Bidings} />
+              {ClientToken && (
+                <Route path="/categories/:id" component={GeneralProducts} />
               )}
-              {Clientdata.token && (
-                <Route path="/profile" component={Profile} />
-              )}
+              <Route path="/auth" component={Auth} />
+              {ClientToken && <Route path="/bidings" component={Bidings} />}
+              {ClientToken && <Route path="/profile" component={Profile} />}
             </Switch>
           </main>
         </Authcontext.Provider>
