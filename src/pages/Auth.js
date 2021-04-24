@@ -62,6 +62,7 @@ const Auth = () => {
 
       if (resultUser.data.login.token) {
         localStorage.setItem("ClientToken", resultUser.data.login.token);
+        localStorage.setItem("CurentcliEnt", resultUser.data.login.id);
         context.login(resultUser.data.login.token, resultUser.data.login.id);
 
         //localStorage.setItem("currentClient", resultUser.data.login.id);

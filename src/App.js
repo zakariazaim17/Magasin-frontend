@@ -9,6 +9,7 @@ import GeneralProducts from "./pages/GeneralProducts.js";
 import MainNavigation from "./Navigation/MainNavigation.js";
 import Authcontext from "./context/AuthContext.js";
 import Welcome from "./pages/Welcome.js";
+import specificProduct from "./pages/SpecificProduct.js";
 
 import {
   BrowserRouter as Router,
@@ -50,6 +51,9 @@ function App() {
           <main className="main-content">
             <Switch>
               {!ClientToken && <Redirect from="/categories" to="/auth" />}
+              {!ClientToken && <Redirect from="/myproducts" to="/auth" />}
+              {!ClientToken && <Redirect from="/profile" to="/auth" />}
+              {!ClientToken && <Redirect from="/bidings" to="/auth" />}
               {!ClientToken && <Redirect from="/" to="/auth" exact />}
 
               {ClientToken && <Redirect from="/" to="/categories" exact />}
@@ -63,11 +67,23 @@ function App() {
                 <Route path="/myproducts" component={MyProducts} />
               )}
               {ClientToken && (
-                <Route path="/categories/:id" component={GeneralProducts} />
+                <Route
+                  path="/categories/:id"
+                  component={GeneralProducts}
+                  exact
+                />
               )}
               <Route path="/auth" component={Auth} />
               {ClientToken && <Route path="/bidings" component={Bidings} />}
               {ClientToken && <Route path="/profile" component={Profile} />}
+
+              {ClientToken && (
+                <Route
+                  path="/categories/:name/:id"
+                  component={specificProduct}
+                  exact
+                />
+              )}
             </Switch>
           </main>
         </Authcontext.Provider>

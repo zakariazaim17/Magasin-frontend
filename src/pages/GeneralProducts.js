@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { useParams, withRouter } from "react-router-dom";
+import { NavLink, useParams, withRouter } from "react-router-dom";
 const ServerUrl = "http://localhost:3004/graphql";
 
 const GeneralProducts = (props) => {
   const [Products, setProducts] = useState([]);
 
-  useEffect(() => {
-    GetProducts();
+  useEffect(async () => {
+    await GetProducts();
   }, []);
   let { id } = props.match.params;
 
@@ -18,6 +18,7 @@ const GeneralProducts = (props) => {
                 id
                 Title
                   Price
+                  Images
                 }
               }`,
     };
@@ -34,7 +35,8 @@ const GeneralProducts = (props) => {
         throw new Error("Failed");
       }
       const resultProducts = await FetchedProducts.json();
-      console.log(resultProducts.data);
+      setProducts(resultProducts.data.GetAllproducts);
+      console.log(resultProducts.data.GetAllproducts);
     } catch (e) {
       console.log(e.message);
     }
@@ -42,6 +44,21 @@ const GeneralProducts = (props) => {
   return (
     <div>
       <h1>this is tfoo {id}</h1>
+      {Products.length !== 0 &&
+        Products.map((obj) => {
+          return (
+            <NavLink key={obj.id} to={`/categories/${id}/${obj.id}`}>
+              <p>{obj.Price}</p>
+              <p>{obj.Title}</p>
+              <img
+                src={`http://localhost:3004/${obj.Images}`}
+                alt="hello"
+                width="100px"
+                height="100px"
+              />
+            </NavLink>
+          );
+        })}
     </div>
   );
 };
