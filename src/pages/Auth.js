@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import Authcontext from "../context/AuthContext.js";
 import Alert from "@material-ui/lab/Alert";
 import "../css/Auth.css";
+import { Player, Controls } from "@lottiefiles/react-lottie-player";
 const ServerUrl = "http://localhost:3004/graphql";
 
 const Auth = () => {
@@ -133,47 +134,66 @@ const Auth = () => {
     setauthStatus({ status: "login", inverse: "register" });
   };*/
   return (
-    <div>
-      <h3>Login</h3>
-      <form className="auth-form" onSubmit={LoginHandler}>
-        <div className="form-control">
-          <label htmlFor="username">Username</label>
-          <input type="text" id="username" ref={usernamedatalogin} />
+    <div className="parent-wrapper">
+      {authStatus === "login" && (
+        <div className="child-wrapper">
+          <form className="auth-form" onSubmit={LoginHandler}>
+            <h3>Login</h3>
+            <Player
+              className="lottiefile"
+              autoplay
+              loop
+              src="https://assets2.lottiefiles.com/packages/lf20_ope20lbo.json"
+              style={{ height: "210px", width: "210px" }}
+            />
+            <div className="form-control">
+              <label htmlFor="username">Username</label>
+              <input type="text" id="username" ref={usernamedatalogin} />
+            </div>
+            <div className="form-control">
+              <label htmlFor="password">Password</label>
+              <input type="password" id="password" ref={passworddatalogin} />
+            </div>
+            <div className="form-actions">
+              <button type="submit" className="loginbtn">
+                Login
+              </button>
+              <button
+                onClick={() => setauthStatus("register")}
+                className="registerbtn"
+              >
+                Switch to Register
+              </button>
+            </div>
+          </form>
         </div>
-        <div className="form-control">
-          <label htmlFor="password">Password</label>
-          <input type="password" id="password" ref={passworddatalogin} />
-        </div>
-        <div className="form-actions">
-          <button type="submit">Login</button>
-          <button onClick={() => setauthStatus("register")}>
-            Switch to REgister
-          </button>
-        </div>
-      </form>
-      <br></br>
-      <h3>Register</h3>
-      <form className="auth-form" onSubmit={RegisterationHandler}>
-        <div className="form-control">
-          <label htmlFor="email">E-mail</label>
-          <input type="email" id="email" ref={emaildataregister} />
-        </div>
+      )}
+      {authStatus === "register" && (
+        <div>
+          <h3>Register</h3>
+          <form className="auth-form" onSubmit={RegisterationHandler}>
+            <div className="form-control">
+              <label htmlFor="email">E-mail</label>
+              <input type="email" id="email" ref={emaildataregister} />
+            </div>
 
-        <div className="form-control">
-          <label htmlFor="username">Username</label>
-          <input type="text" id="username" ref={usernamedataregister} />
+            <div className="form-control">
+              <label htmlFor="username">Username</label>
+              <input type="text" id="username" ref={usernamedataregister} />
+            </div>
+            <div className="form-control">
+              <label htmlFor="password">Password</label>
+              <input type="password" id="password" ref={passworddataregister} />
+            </div>
+            <div className="form-actions">
+              <button type="submit">Register</button>
+              <button onClick={() => setauthStatus("login")}>
+                Switch to Login
+              </button>
+            </div>
+          </form>
         </div>
-        <div className="form-control">
-          <label htmlFor="password">Password</label>
-          <input type="password" id="password" ref={passworddataregister} />
-        </div>
-        <div className="form-actions">
-          <button type="submit">Register</button>
-          <button onClick={() => setauthStatus("login")}>
-            Switch to Login
-          </button>
-        </div>
-      </form>
+      )}
     </div>
   );
 };

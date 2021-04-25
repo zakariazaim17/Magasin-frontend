@@ -1,22 +1,102 @@
 .auth-form {
-  width: 45rem;
-  max-width: 80%;
-  margin: 5rem auto;
+  width: 90%;
+  height: 90%;
+  background-color: black;
+  color: white;
+  margin: auto;
+  border-radius: 12px;
 }
 
 .form-control label,
 .form-control input {
-  width: 100%;
+  width: 60%;
   display: block;
+  margin: auto;
+
+  text-align: center;
 }
 
 .form-control {
-  margin-bottom: 1rem;
+  margin: 25px 0 10px 0;
 }
 .form-control label {
-  margin-bottom: 1rem;
+  margin-bottom: 1.2rem;
+  font-size: 1.3rem;
+}
+.form-control input {
+  font-size: 1.4rem;
+}
+
+.form-control input:focus,
+.form-control input:hover {
+  font-size: 1.4rem;
+  border-color: #9ecaed;
+  box-shadow: 0 0 10px #9ecaed;
 }
 .form-actions button {
-  margin: 0.5rem 1rem;
   cursor: pointer;
+
+  font-size: 21px;
+  margin-top: 9px;
+}
+.form-actions,
+.loginbtn {
+  margin-left: 85px;
+
+  width: 130px;
+  border-radius: 20px;
+  border-color: white;
+  background-color: black;
+  color: white;
+}
+
+.loginbtn:hover {
+  width: 130px;
+  color: black;
+  background-color: white;
+}
+
+.form-actions,
+.registerbtn {
+  margin-left: 55px;
+  margin-right: 10px;
+  width: 190px;
+  border-radius: 20px;
+  border-color: white;
+  background-color: black;
+  color: white;
+}
+
+.form-actions,
+.registerbtn:hover {
+  margin-left: 55px;
+  margin-right: 10px;
+  width: 190px;
+  border-radius: 20px;
+  border-color: white;
+  background-color: black;
+  color: red;
+}
+.parent-wrapper {
+  width: 100%;
+  min-height: 100vh;
+  background-image: url("../lotties//back.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+.child-wrapper {
+  width: 28em;
+  height: 40em;
+  display: flex;
+  justify-content: column;
+  align-items: center;
+}
+
+h3 {
+  font-size: 1.3rem;
+  text-align: center;
 }
