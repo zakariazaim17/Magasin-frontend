@@ -14,7 +14,7 @@ const SpecificProduct = (props) => {
               
       query{
           GetProductbyID( 
-              id:"60840f2b1f12d4439439c92b"
+              id:"${id}"
               ){
                   id
                    Title

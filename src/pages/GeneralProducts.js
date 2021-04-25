@@ -5,8 +5,8 @@ const ServerUrl = "http://localhost:3004/graphql";
 const GeneralProducts = (props) => {
   const [Products, setProducts] = useState([]);
 
-  useEffect(async () => {
-    await GetProducts();
+  useEffect(() => {
+    GetProducts();
   }, []);
   let { id } = props.match.params;
 
@@ -14,7 +14,7 @@ const GeneralProducts = (props) => {
     const requestbody = {
       query: `
             query{
-              GetAllproducts{
+              GetProductsByCategory(Category:"${id}"){
                 id
                 Title
                   Price
@@ -35,8 +35,8 @@ const GeneralProducts = (props) => {
         throw new Error("Failed");
       }
       const resultProducts = await FetchedProducts.json();
-      setProducts(resultProducts.data.GetAllproducts);
-      console.log(resultProducts.data.GetAllproducts);
+      setProducts(resultProducts.data.GetProductsByCategory);
+      console.log(resultProducts.data.GetProductsByCategory);
     } catch (e) {
       console.log(e.message);
     }
