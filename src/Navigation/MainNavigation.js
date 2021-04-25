@@ -7,6 +7,7 @@ const MainNavigation = (props) => {
   const logout = async () => {
     try {
       localStorage.removeItem("ClientToken");
+      localStorage.removeItem("CurentcliEnt");
       window.location.reload();
       // history.push("/welcome");
     } catch (e) {
