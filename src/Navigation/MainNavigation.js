@@ -20,7 +20,7 @@ const MainNavigation = (props) => {
   return (
     <header className="main-navigation">
       <div className="main-navigation_logo">
-        <h1>the navbar</h1>
+        <h1>Magasin</h1>
       </div>
       <nav className="main-navigation_item">
         {ClientToken && (
