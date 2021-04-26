@@ -65,6 +65,21 @@ const Profile = () => {
     }
   };
 
+  const InputsChecker = () => {
+    if (
+      ProductImgUrl &&
+      ProductCategory &&
+      ProductDescription.current.value &&
+      ProductPrice.current.value &&
+      ProductTitle.current.value &&
+      ProductQuantity.current.value
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
   const AddProduct = async () => {
     /*  console.log(
       ProductTitle.current.value,
@@ -109,7 +124,7 @@ const Profile = () => {
     }`,
         };
 
-    if (ProductImgUrl && ProductCategory) {
+    if (InputsChecker()) {
       try {
         const addedProduct = await fetch(ServerUrl, {
           method: "POST",
@@ -131,6 +146,7 @@ const Profile = () => {
         console.log(e.message);
       }
     }
+    return false;
   };
 
   const handlePhoto = (e) => {
@@ -326,9 +342,8 @@ const Profile = () => {
           <label>Quantity</label>
           <input type="text" ref={ProductQuantity} />
         </div>
-
-        <button onClick={AddProduct}>Add Product</button>
       </form>
+      <button onClick={AddProduct}>Add Product</button>
       <br></br>
 
       <br></br>
