@@ -12,6 +12,9 @@ const Profile = () => {
   const ProductPrice = useRef();
   const [ProductCategory, setProductCategory] = useState();
   const ProductQuantity = useRef();
+  const [imageselectation, setimageSelection] = useState();
+  const [promoselectation, setpromoSelection] = useState();
+  const [expiryselection, setexpiryselection] = useState(null);
 
   const ProductCodePromo = useRef();
 
@@ -19,7 +22,7 @@ const Profile = () => {
   const ProductDescription = useRef();
   const [currentUser, setcurrentUser] = useState(null);
   const [expirydate, setexpirydate] = useState(new Date());
-  const [CodePromoID, setCodePromoID] = useState();
+  const [CodePromoID, setCodePromoID] = useState(null);
   const [ProductImgUrl, setProductImgUrl] = useState();
 
   console.log(
@@ -27,6 +30,7 @@ const Profile = () => {
       expirydate.getUTCMonth() + 1
     }/${expirydate.getUTCDate()}`
   );
+
   const Expiration = `${expirydate.getFullYear()}/${
     expirydate.getUTCMonth() + 1
   }/${expirydate.getUTCDate()}`;
@@ -72,23 +76,40 @@ const Profile = () => {
       CodePromoID,
       localStorage.getItem("CurentcliEnt")
     );*/
-    const requestbody = {
-      query: `
-      mutation {
-        AddProduct(
-          Title: "${ProductTitle.current.value}"
-          Price: ${ProductPrice.current.value}
-          Category: "${ProductCategory}"
-          Description: "${ProductDescription.current.value}"
-          Quantity: ${ProductQuantity.current.value}
-          CodePromo: "${CodePromoID}"
-          Owner: "${localStorage.getItem("CurentcliEnt")}"
-          Images: "${ProductImgUrl}"
-        ){id Title OnStore}
-      }`,
-    };
 
-    if (ProductImgUrl) {
+    const requestbody = CodePromoID
+      ? {
+          query: `
+        mutation {
+          AddProduct(
+            Title: "${ProductTitle.current.value}"
+            Price: ${ProductPrice.current.value}
+            Category: "${ProductCategory}"
+            Description: "${ProductDescription.current.value}"
+            Quantity: ${ProductQuantity.current.value}
+            CodePromo: "${CodePromoID}"
+            Owner: "${localStorage.getItem("CurentcliEnt")}"
+            Images: "${ProductImgUrl}"
+          ){id Title OnStore}
+        }`,
+        }
+      : {
+          query: `
+    mutation {
+      AddProduct(
+        Title: "${ProductTitle.current.value}"
+        Price: ${ProductPrice.current.value}
+        Category: "${ProductCategory}"
+        Description: "${ProductDescription.current.value}"
+        Quantity: ${ProductQuantity.current.value}
+        CodePromo: ${CodePromoID}
+        Owner: "${localStorage.getItem("CurentcliEnt")}"
+        Images: "${ProductImgUrl}"
+      ){id Title OnStore}
+    }`,
+        };
+
+    if (ProductImgUrl && ProductCategory) {
       try {
         const addedProduct = await fetch(ServerUrl, {
           method: "POST",
@@ -117,8 +138,10 @@ const Profile = () => {
   };
 
   const handleCodePromoSubmission = async () => {
-    const requestbody = {
-      query: `
+    const requestbody =
+      expiryselection === "with expiry"
+        ? {
+            query: `
           mutation{
             AddDiscount(
               Percentage:${ProductCodePromoPercent.current.value},
@@ -130,7 +153,21 @@ const Profile = () => {
                   Expiry
                 }
               }`,
-    };
+          }
+        : {
+            query: `
+          mutation{
+            AddDiscount(
+              Percentage:${ProductCodePromoPercent.current.value},
+               Code:"${ProductCodePromo.current.value}",
+               Expiry:"1970/01/02"
+                )
+                {
+                  id
+                  Expiry
+                }
+              }`,
+          };
     try {
       const resultedPromo = await fetch(ServerUrl, {
         method: "POST",
@@ -190,17 +227,89 @@ const Profile = () => {
     }
   };
   return (
-    <div>
+    <div className="main-wrapper">
       <h1>this is Profile</h1>
       <br></br>
+      {currentUser !== null && (
+        <div>
+          <p>{currentUser.Email}</p>
+          <p>{currentUser.Joined}</p>
+          <p>{currentUser.Totalproducts}</p>
+          <p>{currentUser.Verified}</p>
+          <p>{currentUser.username}</p>
+        </div>
+      )}
+      <br></br>
+
       <form onSubmit={handleSubmit} encType="multipart/form-data">
-        <input
-          type="file"
-          accept=".png, .jpg, .jpeg"
-          name="photo"
-          onChange={handlePhoto}
-        />
-        <input type="submit" />
+        <div>
+          <input
+            type="file"
+            accept=".png, .jpg, .jpeg"
+            name="photo"
+            onChange={handlePhoto}
+          />
+          <input type="submit" />
+        </div>
+        <br></br>
+        <div>
+          <p>Choose your Product Category </p>
+          <Select
+            options={options}
+            className="select"
+            onChange={(val) => setProductCategory(val.value)}
+          />
+        </div>
+
+        <br></br>
+
+        <div onChange={(val) => setpromoSelection(val.target.value)}>
+          <input type="radio" value="with promo" name="add promo" />
+          with promo
+          <input
+            type="radio"
+            value="without promo"
+            name="add promo"
+            defaultChecked="true"
+          />
+          no promo
+        </div>
+        {promoselectation === "with promo" && (
+          <div>
+            <p>Add codePromo to your product</p>
+            <label>Code</label>
+            <input type="text" placeholder="code" ref={ProductCodePromo} />
+            <label>Percentage</label>
+            <input
+              type="text"
+              placeholder="Pecentage"
+              ref={ProductCodePromoPercent}
+            />
+            <div onChange={(val) => setexpiryselection(val.target.value)}>
+              <input type="radio" value="with expiry" name="add expiry" />
+              with expiry
+              <input
+                type="radio"
+                value="without expiry"
+                name="add expiry"
+                defaultChecked="true"
+              />
+              no expiry
+            </div>
+            {expiryselection === "with expiry" && (
+              <>
+                <label>Pick expiry date</label>
+                <DatePicker
+                  dateFormat="yyyy/MM/dd"
+                  selected={expirydate}
+                  onChange={(date) => setexpirydate(date)}
+                />
+              </>
+            )}
+
+            <button onClick={handleCodePromoSubmission}>add Promo</button>
+          </div>
+        )}
         <div>
           <label>Title</label>
           <input type="text" ref={ProductTitle} />
@@ -217,32 +326,7 @@ const Profile = () => {
           <label>Quantity</label>
           <input type="text" ref={ProductQuantity} />
         </div>
-        <div>
-          <p>Add codePromo to your product</p>
-          <label>Code</label>
-          <input type="text" placeholder="code" ref={ProductCodePromo} />
-          <label>Percentage</label>
-          <input
-            type="text"
-            placeholder="Pecentage"
-            ref={ProductCodePromoPercent}
-          />
-          <label>Pick expiry date</label>
-          <DatePicker
-            dateFormat="yyyy/MM/dd"
-            selected={expirydate}
-            onChange={(date) => setexpirydate(date)}
-          />
-          <button onClick={handleCodePromoSubmission}>add Promo</button>
-        </div>
-        <div>
-          <p>Choose your Product Category </p>
-          <Select
-            options={options}
-            className="select"
-            onChange={(val) => setProductCategory(val.value)}
-          />
-        </div>
+
         <button onClick={AddProduct}>Add Product</button>
       </form>
       <br></br>
@@ -250,15 +334,7 @@ const Profile = () => {
       <br></br>
 
       <br></br>
-      {currentUser !== null && (
-        <div>
-          <p>{currentUser.Email}</p>
-          <p>{currentUser.Joined}</p>
-          <p>{currentUser.Totalproducts}</p>
-          <p>{currentUser.Verified}</p>
-          <p>{currentUser.username}</p>
-        </div>
-      )}
+
       <br></br>
     </div>
   );

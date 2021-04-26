@@ -48,7 +48,7 @@ const MyProducts = () => {
   };
 
   return (
-    <div>
+    <div className="main-wrapper">
       <h1>this is MyProducts</h1>
       {myProductsdata.length !== 0 &&
         myProductsdata.map((obj) => {
@@ -56,8 +56,12 @@ const MyProducts = () => {
             <div key={obj.id}>
               <p>{obj.Title}</p>
               <p>{obj.Price}</p>
-              <p>{obj.CodePromo.Code}</p>
-              <p>{obj.CodePromo.Percentage}</p>
+              {obj.CodePromo !== null && (
+                <>
+                  <p>"zcz{obj.CodePromo.Code}"</p>
+                  <p>{obj.CodePromo.Percentage}</p>
+                </>
+              )}
               <img
                 src={`http://localhost:3004/${obj.Images}`}
                 alt="hello"
