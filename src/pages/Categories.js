@@ -44,8 +44,7 @@ const Categories = () => {
   };
 
   return (
-    <div className="mainWraper">
-      <p> All Categories</p>
+    <div className="mainWrapercat">
       <div className="main-data-Container">
         {CAtegoryDAta.length !== 0 &&
           CAtegoryDAta.map((obj) => {

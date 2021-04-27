@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { NavLink, useHistory, Redirect } from "react-router-dom";
 import "./MainNAvigation.css";
 import AuthContext from "../context/AuthContext.js";
+import logo from "../lotties/logo.png";
 
 const MainNavigation = (props) => {
   const logout = async () => {
@@ -20,7 +21,7 @@ const MainNavigation = (props) => {
   return (
     <header className="main-navigation">
       <div className="main-navigation_logo">
-        <h1>Magasin</h1>
+        <img src={logo} alt="logo" />
       </div>
       <nav className="main-navigation_item">
         {ClientToken && (
