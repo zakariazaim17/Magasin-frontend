@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from "react";
 import "../css/Categories.css";
-import { Link, NavLink } from "react-router-dom";
-//import Authcontext from "../context/AuthContext.js";
+import { NavLink } from "react-router-dom";
+
 //const ServerUrl = "http://localhost:3004/graphql";
 const ServerUrl = "https://my-superi-app.jelastic.metropolia.fi/graphql";
 const Categories = () => {
-  //const context = React.useContext(Authcontext);
   const [CAtegoryDAta, setCAtegoryDAte] = useState([]);
   useEffect(() => {
     GetallCategories();
   }, []);
   const GetallCategories = async () => {
-    //console.log("wwww", context.token);
     const requestbody = {
       query: `
             query{

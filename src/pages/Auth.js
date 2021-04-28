@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import Authcontext from "../context/AuthContext.js";
 import Alert from "@material-ui/lab/Alert";
 import "../css/Auth.css";
-import { Player, Controls } from "@lottiefiles/react-lottie-player";
+import { Player } from "@lottiefiles/react-lottie-player";
 const ServerUrl = "https://my-superi-app.jelastic.metropolia.fi/graphql";
 //const ServerUrl = "http://localhost:3004/graphql";
 const Auth = () => {
@@ -15,15 +15,6 @@ const Auth = () => {
   const emaildataregister = useRef();
   const passworddataregister = useRef();
   const usernamedataregister = useRef();
-
-  //switch the onsubmit Function based on Auth status
-  /*const Handlesubmition = (event) => {
-    event.preventDefault();
-    if (authStatus === "login") {
-      LoginHandler();
-    }
-    RegisterationHandler();
-  };*/
 
   //Login function
   const LoginHandler = async (event) => {
@@ -65,8 +56,6 @@ const Auth = () => {
         localStorage.setItem("ClientToken", resultUser.data.login.token);
         localStorage.setItem("CurentcliEnt", resultUser.data.login.id);
         context.login(resultUser.data.login.token, resultUser.data.login.id);
-
-        //localStorage.setItem("currentClient", resultUser.data.login.id);
       }
     } catch (e) {
       console.log(e.message);
@@ -126,13 +115,6 @@ const Auth = () => {
     }
   };
 
-  /*const SwitchFunc = (e) => {
-    //e.preventDefault();
-    if (authStatus === "login") {
-      setauthStatus({ status: "register", inverse: "login" });
-    }
-    setauthStatus({ status: "login", inverse: "register" });
-  };*/
   return (
     <div className="parent-wrapper">
       {authStatus === "login" && (

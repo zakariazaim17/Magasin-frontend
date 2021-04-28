@@ -59,7 +59,7 @@ const MyProducts = () => {
               <p>{obj.Price}</p>
               {obj.CodePromo !== null && (
                 <>
-                  <p>"zcz{obj.CodePromo.Code}"</p>
+                  <p>{obj.CodePromo.Code}</p>
                   <p>{obj.CodePromo.Percentage}</p>
                 </>
               )}

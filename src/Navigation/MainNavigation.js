@@ -1,7 +1,7 @@
-import React, { useContext } from "react";
-import { NavLink, useHistory, Redirect } from "react-router-dom";
+import React from "react";
+import { NavLink } from "react-router-dom";
 import "./MainNAvigation.css";
-import AuthContext from "../context/AuthContext.js";
+
 import logo from "../lotties/logo.png";
 
 const MainNavigation = (props) => {
@@ -10,19 +10,16 @@ const MainNavigation = (props) => {
       localStorage.removeItem("ClientToken");
       localStorage.removeItem("CurentcliEnt");
       window.location.reload();
-      // history.push("/welcome");
     } catch (e) {
       console.log(e.message);
     }
-
-    // localStorage.removeItem("currentClient");
   };
   const ClientToken = localStorage.getItem("ClientToken");
   return (
     <header className="main-navigation">
-      <div className="main-navigation_logo">
+      <NavLink className="main-navigation_logo" to="/categories">
         <img src={logo} alt="logo" />
-      </div>
+      </NavLink>
       <nav className="main-navigation_item">
         {ClientToken && (
           <ul>

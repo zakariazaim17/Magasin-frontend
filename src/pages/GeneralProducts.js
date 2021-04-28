@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { NavLink, useParams, withRouter } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 //const ServerUrl = "http://localhost:3004/graphql";
 const ServerUrl = "https://my-superi-app.jelastic.metropolia.fi/graphql";
 const GeneralProducts = (props) => {

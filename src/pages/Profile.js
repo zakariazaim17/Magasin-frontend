@@ -12,7 +12,7 @@ const Profile = () => {
   const ProductPrice = useRef();
   const [ProductCategory, setProductCategory] = useState();
   const ProductQuantity = useRef();
-  const [imageselectation, setimageSelection] = useState();
+
   const [promoselectation, setpromoSelection] = useState();
   const [expiryselection, setexpiryselection] = useState(null);
 
@@ -81,17 +81,6 @@ const Profile = () => {
   };
 
   const AddProduct = async () => {
-    /*  console.log(
-      ProductTitle.current.value,
-      ProductImgUrl,
-      ProductPrice,
-      ProductQuantity,
-      ProductDescription,
-      ProductCategory,
-      CodePromoID,
-      localStorage.getItem("CurentcliEnt")
-    );*/
-
     const requestbody = CodePromoID
       ? {
           query: `

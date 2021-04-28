@@ -8,7 +8,7 @@ import "./css/App.css";
 import GeneralProducts from "./pages/GeneralProducts.js";
 import MainNavigation from "./Navigation/MainNavigation.js";
 import Authcontext from "./context/AuthContext.js";
-import Welcome from "./pages/Welcome.js";
+
 import specificProduct from "./pages/SpecificProduct.js";
 import BidingsRooms from "./pages/BidingsRooms.js";
 
@@ -16,7 +16,6 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  BrowserRouter,
   Redirect,
 } from "react-router-dom";
 import React, { useState } from "react";
@@ -36,7 +35,6 @@ function App() {
     setClientdata({ token: null, id: null });
   };
 
-  //const ServerURL = "http://localhost:3004/graphql";
   return (
     <Router>
       <React.Fragment>
