@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-const ServerUrl = "http://localhost:3004/graphql";
+const ServerUrl = "https://my-superi-app.jelastic.metropolia.fi/graphql";
+//const ServerUrl = "http://localhost:3004/graphql";
 const SpecificProduct = (props) => {
   const [SingleProduct, setSingleProduct] = useState(null);
 
@@ -58,7 +59,7 @@ const SpecificProduct = (props) => {
           <p>{SingleProduct.Description}</p>
           <p>{SingleProduct.Owner.username}</p>
           <img
-            src={`http://localhost:3004/${SingleProduct.Images}`}
+            src={`https://my-superi-app.jelastic.metropolia.fi/${SingleProduct.Images}`}
             alt="hello"
             width="100px"
             height="100px"

@@ -10,6 +10,7 @@ import MainNavigation from "./Navigation/MainNavigation.js";
 import Authcontext from "./context/AuthContext.js";
 import Welcome from "./pages/Welcome.js";
 import specificProduct from "./pages/SpecificProduct.js";
+import BidingsRooms from "./pages/BidingsRooms.js";
 
 import {
   BrowserRouter as Router,
@@ -72,6 +73,9 @@ function App() {
                   component={GeneralProducts}
                   exact
                 />
+              )}
+              {ClientToken && (
+                <Route path="/bidings/:id" component={BidingsRooms} exact />
               )}
               <Route path="/auth" component={Auth} />
               {ClientToken && <Route path="/bidings" component={Bidings} />}

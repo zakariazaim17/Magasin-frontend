@@ -1,7 +1,9 @@
 import { createChainedFunction } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
+import { NavLink } from "react-router-dom";
 import "../css/Bidings.css";
-const ServerUrl = "http://localhost:3004/graphql";
+const ServerUrl = "https://my-superi-app.jelastic.metropolia.fi/graphql";
+//const ServerUrl = "http://localhost:3004/graphql";
 const Bidings = () => {
   const [AllBidings, setAllBidings] = useState([]);
 
@@ -51,12 +53,15 @@ const Bidings = () => {
       {AllBidings.length !== 0 &&
         AllBidings.map((obj) => {
           return (
-            <div key={obj.id}>
+            <NavLink key={obj.id} to={`/bidings/${obj.id}`}>
               <p>{obj.Title}</p>
               <p>{obj.Initialprice}</p>
               <p>{obj.Owner.username}</p>
-              <img src={`http://localhost:3004/${obj.Images}`} alt="hello" />
-            </div>
+              <img
+                src={`https://my-superi-app.jelastic.metropolia.fi/${obj.Images}`}
+                alt="hello"
+              />
+            </NavLink>
           );
         })}
     </div>

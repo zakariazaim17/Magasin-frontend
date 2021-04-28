@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { NavLink, useParams, withRouter } from "react-router-dom";
-const ServerUrl = "http://localhost:3004/graphql";
-
+//const ServerUrl = "http://localhost:3004/graphql";
+const ServerUrl = "https://my-superi-app.jelastic.metropolia.fi/graphql";
 const GeneralProducts = (props) => {
   const [Products, setProducts] = useState([]);
 
@@ -51,7 +51,7 @@ const GeneralProducts = (props) => {
               <p>{obj.Price}</p>
               <p>{obj.Title}</p>
               <img
-                src={`http://localhost:3004/${obj.Images}`}
+                src={`https://my-superi-app.jelastic.metropolia.fi/${obj.Images}`}
                 alt="hello"
                 width="100px"
                 height="100px"

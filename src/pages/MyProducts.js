@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 
-const ServerUrl = "http://localhost:3004/graphql";
+const ServerUrl = "https://my-superi-app.jelastic.metropolia.fi/graphql";
+//const ServerUrl = "http://localhost:3004/graphql";
 const MyProducts = () => {
   const [myProductsdata, setmyProductsdata] = useState([]);
   useEffect(() => {
@@ -63,7 +64,7 @@ const MyProducts = () => {
                 </>
               )}
               <img
-                src={`http://localhost:3004/${obj.Images}`}
+                src={`https://my-superi-app.jelastic.metropolia.fi/${obj.Images}`}
                 alt="hello"
                 width="150px"
                 height="150px"

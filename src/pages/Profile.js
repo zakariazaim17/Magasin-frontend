@@ -4,8 +4,8 @@ import Select from "react-select";
 import "../css/Profile.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-
-const ServerUrl = "http://localhost:3004/graphql";
+const ServerUrl = "https://my-superi-app.jelastic.metropolia.fi/graphql";
+//const ServerUrl = "http://localhost:3004/graphql";
 
 const Profile = () => {
   const ProductTitle = useRef();
@@ -54,7 +54,7 @@ const Profile = () => {
     formData.append("photo", newUser.photo);
     try {
       const addedImg = await axios.post(
-        "http://localhost:3004/magasin/uploadphoto/",
+        "https://my-superi-app.jelastic.metropolia.fi/magasin/uploadphoto/",
         formData
       );
       const imgid = await addedImg.data;

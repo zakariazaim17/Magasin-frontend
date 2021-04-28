@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import "../css/Categories.css";
 import { Link, NavLink } from "react-router-dom";
 //import Authcontext from "../context/AuthContext.js";
-const ServerUrl = "http://localhost:3004/graphql";
-
+//const ServerUrl = "http://localhost:3004/graphql";
+const ServerUrl = "https://my-superi-app.jelastic.metropolia.fi/graphql";
 const Categories = () => {
   //const context = React.useContext(Authcontext);
   const [CAtegoryDAta, setCAtegoryDAte] = useState([]);
@@ -57,7 +57,7 @@ const Categories = () => {
                 <p>{obj.Name}</p>
                 <img
                   className="Categoryimg"
-                  src={`http://localhost:3004/${obj.Images}`}
+                  src={`https://my-superi-app.jelastic.metropolia.fi/${obj.Images}`}
                   alt="hello"
                 />
               </NavLink>

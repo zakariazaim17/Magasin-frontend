@@ -1,0 +1,15 @@
+.parent {
+  margin: 7rem 3rem;
+}
+
+.info {
+  float: left;
+}
+
+.biding-panel {
+  float: right;
+}
+
+.messages {
+  float: right;
+}
