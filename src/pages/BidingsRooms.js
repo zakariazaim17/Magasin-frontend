@@ -17,7 +17,9 @@ const BidingsRooms = (props) => {
   console.log("user joined room", id);
 
   useEffect(() => {
-    socketRef.current = io.connect("http://localhost:3007");
+    socketRef.current = io.connect(
+      "https://my-superi-app.jelastic.metropolia.fi/"
+    );
     socketRef.current.emit("room", id);
     socketRef.current.on("group message", (msg) => {
       if (chat.length === 8) {
