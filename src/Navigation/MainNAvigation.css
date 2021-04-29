@@ -1,23 +1,25 @@
 @import url("https://fonts.googleapis.com/css2?family=Zen+Dots&display=swap");
 .main-navigation {
-  position: fixed;
   left: 0;
   top: 0;
   width: 100%;
   height: 3.5rem;
   background: transparent;
   padding: 0 1rem;
-  display: flex;
+  border-color: tomato;
+  border-width: 2px;
+  border-style: outset;
+  border-radius: 266px;
   align-items: center;
 }
 
 .main-navigation_logo {
-  margin: 0;
-  font-size: 1.5rem;
 }
 
 .main-navigation_item {
-  margin-left: 1.5rem;
+  float: right;
+  font-size: 1.3rem;
+  margin: 0.8rem 1rem;
 }
 
 .main-navigation_item ul {
@@ -40,6 +42,10 @@
 .main-navigation_item a.active,
 .main-navigation_item button:hover {
   color: orange;
+  border-color: orange;
+  border-style: ridge;
+  border-width: 0.6px;
+  border-radius: 3px;
 }
 
 h1 {
@@ -47,7 +53,10 @@ h1 {
 }
 
 img {
-  margin-top: 60px;
-  width: 150px;
-  height: 150px;
+  width: 145px;
+  height: 60px;
+}
+
+.uio {
+  margin-top: 2px;
 }

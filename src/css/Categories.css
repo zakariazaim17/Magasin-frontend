@@ -1,22 +1,36 @@
+@import url("https://fonts.googleapis.com/css2?family=Exo+2&display=swap");
 .mainWrappercat {
   margin: 4rem 2rem;
 }
 .main-data-Container {
-  margin: 2rem 2rem 2rem 2rem;
+  margin: 6rem 2rem;
   display: grid;
   grid-template-columns: 25% 25% 25% 25%;
-  gap: auto;
+  gap: 15px;
 }
 
 .SingleCategory {
-  padding: 10%;
   text-align: center;
+  font-family: "Exo 2", sans-serif;
+  font-size: 1.2em;
+  text-decoration: none;
+  overflow: hidden;
+  margin-bottom: 10%;
 }
 .CategoryName {
   font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
 }
 
 .Categoryimg {
-  width: 20vw;
-  height: 188px;
+  width: 80%;
+  height: 100%;
+  border-radius: 10px;
+  transform-origin: 50% 55%;
+  transition: transform 1.2s, filter 0.5s ease-in-out;
+}
+
+.Categoryimg:hover {
+  border-radius: 10px;
+  filter: brightness(109%);
+  transform: scale(1.09);
 }

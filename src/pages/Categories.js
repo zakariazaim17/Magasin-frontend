@@ -52,7 +52,7 @@ const Categories = () => {
                 className="SingleCategory"
                 to={`/categories/${obj.Name}`}
               >
-                <p>{obj.Name}</p>
+                <p className="paragraph">{obj.Name}</p>
                 <img
                   className="Categoryimg"
                   src={`https://my-superi-app.jelastic.metropolia.fi/${obj.Images}`}
