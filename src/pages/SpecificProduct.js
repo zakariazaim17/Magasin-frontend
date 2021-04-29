@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
+import "../css/SpecificProduct.css";
+import { FcOk } from "react-icons/fc";
 const ServerUrl = "https://my-superi-app.jelastic.metropolia.fi/graphql";
+
 //const ServerUrl = "http://localhost:3004/graphql";
 const SpecificProduct = (props) => {
   const [SingleProduct, setSingleProduct] = useState(null);
@@ -22,10 +25,13 @@ const SpecificProduct = (props) => {
                     OnStore 
                      Owner{
                          username
+                         Verified
                         } 
                       Price  
                        Images
                         Description
+                        Quantity
+                        
                     }
                 }`,
     };
@@ -49,21 +55,36 @@ const SpecificProduct = (props) => {
     }
   };
   return (
-    <div>
-      <h1>this {id}</h1>
+    <div className="SpecificProductWrapper">
       {SingleProduct !== null && (
         <div>
-          <p>{SingleProduct.Title}</p>
-          <p>{SingleProduct.Onstore}</p>
-          <p>{SingleProduct.Price}</p>
-          <p>{SingleProduct.Description}</p>
-          <p>{SingleProduct.Owner.username}</p>
           <img
             src={`https://my-superi-app.jelastic.metropolia.fi/${SingleProduct.Images}`}
             alt="hello"
-            width="100px"
-            height="100px"
+            className="Product-image"
           />
+          <div className="More-details-section">
+            <p className="ProductTile">{SingleProduct.Title}</p>
+
+            <p>
+              <span>Price: </span>€ {SingleProduct.Price}
+            </p>
+            <p>
+              <span>Description: </span>
+              {SingleProduct.Description}
+            </p>
+            <p>
+              <span>Seller: </span>
+              {SingleProduct.Owner.username}{" "}
+              {SingleProduct.Owner.verified === true && <FcOk />}
+            </p>
+            <p>
+              <span>Quantity: </span>
+              {SingleProduct.Quantity} piece(s)
+            </p>
+
+            <button>Buy</button>
+          </div>
         </div>
       )}
     </div>

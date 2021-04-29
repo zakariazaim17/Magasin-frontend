@@ -6,10 +6,9 @@
   height: 3.5rem;
   background: transparent;
   padding: 0 1rem;
-  border-color: tomato;
-  border-width: 2px;
-  border-style: outset;
-  border-radius: 266px;
+
+  border-bottom: groove;
+
   align-items: center;
 }
 

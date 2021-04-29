@@ -1,0 +1,50 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap");
+.SpecificProductWrapper {
+  max-width: 100vw;
+  margin: 5rem 2rem;
+}
+
+.More-details-section {
+  float: right;
+  width: 38%;
+  margin-left: 20px;
+
+  align-items: center;
+}
+
+.Product-image {
+  float: left;
+  margin-left: 25px;
+  height: 50%;
+  width: 30%;
+
+  border-top: solid antiquewhite;
+}
+
+.ProductTile {
+  font-size: 35px;
+}
+
+p {
+  margin-bottom: 2rem;
+}
+
+span {
+  font-weight: bold;
+}
+button {
+  align-items: center;
+  margin: 25px;
+  font-size: 23px;
+  border-radius: 10px;
+
+  background-color: white;
+  color: rgb(65, 219, 168);
+  cursor: pointer;
+  padding: 10px 20px;
+}
+button:hover {
+  background-color: rgb(65, 219, 168);
+  color: white;
+  box-shadow: thistle;
+}
