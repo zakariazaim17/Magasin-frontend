@@ -1,0 +1,32 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap");
+.mainWraperGeneral {
+  max-width: 100vw;
+  display: grid;
+  grid-template-columns: 31% 31% 31%;
+  margin: 4rem 0rem;
+  gap: 20px 15px;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  scroll-behavior: smooth;
+}
+
+.SingleGeneralProduct {
+  text-decoration: none;
+  margin-bottom: 10%;
+  border-width: 2px;
+  border-bottom-style: solid;
+  border-color: rgb(216, 211, 211);
+}
+
+.GeneralProductimg {
+  width: 260px;
+  height: 250px;
+  border-radius: 4px;
+}
+
+p {
+  margin-left: 10px;
+  margin-right: 10px;
+  font-family: "Montserrat", sans-serif;
+}

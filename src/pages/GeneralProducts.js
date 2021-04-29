@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 //const ServerUrl = "http://localhost:3004/graphql";
+import "../css/GeneralProducts.css";
 const ServerUrl = "https://my-superi-app.jelastic.metropolia.fi/graphql";
+
 const GeneralProducts = (props) => {
   const [Products, setProducts] = useState([]);
 
@@ -42,20 +44,22 @@ const GeneralProducts = (props) => {
     }
   };
   return (
-    <div>
-      <h1>this is tfoo {id}</h1>
+    <div className="mainWraperGeneral">
       {Products.length !== 0 &&
         Products.map((obj) => {
           return (
-            <NavLink key={obj.id} to={`/categories/${id}/${obj.id}`}>
-              <p>{obj.Price}</p>
-              <p>{obj.Title}</p>
+            <NavLink
+              key={obj.id}
+              to={`/categories/${id}/${obj.id}`}
+              className="SingleGeneralProduct"
+            >
               <img
                 src={`https://my-superi-app.jelastic.metropolia.fi/${obj.Images}`}
                 alt="hello"
-                width="100px"
-                height="100px"
+                className="GeneralProductimg"
               />
+              <p>{obj.Title}</p>
+              <p>€ {obj.Price}</p>
             </NavLink>
           );
         })}
