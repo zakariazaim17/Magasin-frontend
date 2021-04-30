@@ -32,7 +32,7 @@ p {
 span {
   font-weight: bold;
 }
-button {
+.Buy-btn {
   align-items: center;
   margin: 25px;
   font-size: 23px;
@@ -43,7 +43,7 @@ button {
   cursor: pointer;
   padding: 10px 20px;
 }
-button:hover {
+.Buy-btn:hover {
   background-color: rgb(65, 219, 168);
   color: white;
   box-shadow: thistle;

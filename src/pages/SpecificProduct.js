@@ -83,7 +83,7 @@ const SpecificProduct = (props) => {
               {SingleProduct.Quantity} piece(s)
             </p>
 
-            <button>Buy</button>
+            <button className="Buy-btn">Buy</button>
           </div>
         </div>
       )}
