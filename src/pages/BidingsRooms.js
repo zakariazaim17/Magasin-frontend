@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import "../css/BidingsRooms.css";
 import io from "socket.io-client";
+import { GrSend } from "react-icons/gr";
 //const ServerUrl = "http://localhost:3004/graphql";
 const ServerUrl = "https://my-superi-app.jelastic.metropolia.fi/graphql";
 
@@ -13,6 +14,8 @@ const BidingsRooms = (props) => {
 
   const [chat, setchat] = useState([]);
   const messagecontent = useRef();
+
+  const [current_Client, setCurrent_Client] = useState();
 
   console.log("user joined room", id);
 
@@ -34,7 +37,42 @@ const BidingsRooms = (props) => {
 
   useEffect(() => {
     GetBiding();
+    //GetUser();
   });
+
+  /* const GetUser = async () => {
+    const requestbody = {
+      query: `
+         
+query {
+  GetClientById(id: "${localStorage.getItem("CurentcliEnt")}") {
+    username
+  }
+}
+`,
+    };
+
+    try {
+      const user = await fetch(ServerUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("ClientToken")}`,
+        },
+        body: JSON.stringify(requestbody),
+      });
+      if (user.status !== 200 && user.status !== 201) {
+        throw new Error("Failed");
+      }
+      const result_current_user = await user.json();
+      console.log(result_current_user.data.GetClientById);
+      setCurrent_Client(result_current_user.data.GetClientById);
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
+
+  */
 
   const handlemessagesubmit = (e) => {
     e.preventDefault();
@@ -44,6 +82,8 @@ const BidingsRooms = (props) => {
       content: messagecontent.current.value,
       room: id,
     };
+
+    //current_Client.username
 
     socketRef.current.emit("group message", data);
     messagecontent.current.value = "";
@@ -87,34 +127,49 @@ const BidingsRooms = (props) => {
   return (
     <div className="parent">
       <div className="info">
-        <p>this will be room for each biding</p>
         {singleBid !== null && (
           <div>
-            <p>{singleBid.Title}</p>
-            <p>{singleBid.Initialprice}</p>
             <img
               src={`https://my-superi-app.jelastic.metropolia.fi/${singleBid.Images}`}
               alt="hello"
+              className="Product_Img"
             />
+            <p>{singleBid.Title}</p>
+            <p>
+              <span className="label_info">Initial Price</span>:€{" "}
+              {singleBid.Initialprice}
+            </p>
+            <p>
+              <span className="label_info">Seller</span>:{" "}
+              {singleBid.Owner.username}
+            </p>
           </div>
         )}
       </div>
-      <div className="biding-panel">
-        <form id="group">
-          <input type="text" id="message_in_room" ref={messagecontent} />
-          <button onClick={handlemessagesubmit}>Send</button>
-        </form>
-        group chat:
-      </div>
-      <div className="messages">
-        {chat.length !== 0 &&
-          chat.map((obj, index) => {
-            return (
-              <div key={index}>
-                <p>{obj.content}</p>
-              </div>
-            );
-          })}
+      <div className="Chat_section">
+        <div className="biding-panel">
+          <form id="group" className="form_section">
+            <input
+              type="text"
+              className="message_in_room"
+              ref={messagecontent}
+            />
+
+            <GrSend onClick={handlemessagesubmit} className="Send_btn" />
+          </form>
+        </div>
+        <div className="messages">
+          {chat.length !== 0 &&
+            chat.map((obj, index) => {
+              return (
+                <div key={index}>
+                  <p>
+                    {obj.name} : {obj.content}
+                  </p>
+                </div>
+              );
+            })}
+        </div>
       </div>
     </div>
   );
