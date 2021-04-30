@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
+import { Tooltip } from "@varld/popover";
 import "../css/Myproducts.css";
+import { MdDelete, MdCreate } from "react-icons/md";
 const ServerUrl = "https://my-superi-app.jelastic.metropolia.fi/graphql";
 //const ServerUrl = "http://localhost:3004/graphql";
 const MyProducts = () => {
@@ -92,11 +94,35 @@ const MyProducts = () => {
     }
   };
 
+  const Delete_Product = async (event) => {
+    const requestbody = {
+      query: ` 
+        mutation {
+          DeleteProducts(id:"${event}"){id}
+        }`,
+    };
+
+    const deletedProduct = await fetch(ServerUrl, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify(requestbody),
+    });
+
+    const success_Deleted_Product = await deletedProduct.json();
+    console.log(success_Deleted_Product);
+    window.location.reload();
+  };
+
+  const Cancel_Product_Modification = (e) => {
+    e.preventDefault();
+    setmodifyProduct();
+  };
   return (
     <div className="parent-Modification">
       {modifyProduct && (
         <div className="Product-modification-div">
-          <p>modify here {modifyProduct.id}</p>
           <div className="modifySection">
             <label>Title</label>
             <input
@@ -136,7 +162,15 @@ const MyProducts = () => {
               }
             />
           </div>
-          <button onClick={Product_Modification}>Modify</button>
+          <button onClick={Product_Modification} className="modify_btn_final">
+            Modify
+          </button>
+          <button
+            onClick={Cancel_Product_Modification}
+            className="Cancel_btn_final"
+          >
+            Cancel
+          </button>
         </div>
       )}
       <div className="MyProducts-wrapper">
@@ -144,7 +178,7 @@ const MyProducts = () => {
           myProductsdata.map((obj) => {
             return (
               <div key={obj.id} className="SingleOwnProduct">
-                <button
+                <MdCreate
                   className="modify-Product"
                   onClick={() =>
                     setmodifyProduct({
@@ -156,17 +190,18 @@ const MyProducts = () => {
                       OnStore: obj.Onstore,
                     })
                   }
-                >
-                  modify
-                </button>
+                />
+
+                <MdDelete
+                  onClick={() => Delete_Product(obj.id)}
+                  className="delete_product_btn"
+                />
+
                 <p>{obj.Title}</p>
-                <p>{obj.Price}</p>
-                {obj.CodePromo !== null && (
-                  <>
-                    <p>{obj.CodePromo.Code}</p>
-                    <p>{obj.CodePromo.Percentage}</p>
-                  </>
-                )}
+                <p>€ {obj.Price}</p>
+                <p>{obj.Description}</p>
+                <p>{obj.Quantity} piece(s)</p>
+
                 <img
                   src={`https://my-superi-app.jelastic.metropolia.fi/${obj.Images}`}
                   alt="hello"

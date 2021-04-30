@@ -1,3 +1,81 @@
 .main-wrapper {
+  max-width: 100vw;
   margin: 4em 2em;
+}
+
+.Create_Biding_section {
+  width: 81%;
+}
+
+.Add_Bid_trigger {
+}
+
+.Create_Biding_section {
+}
+
+.Bidings_Section {
+  max-width: 100vw;
+  display: grid;
+  margin: 4rem 0rem;
+  gap: 20px 20px;
+  grid-template-columns: 40% 40%;
+  align-items: center;
+  justify-content: center;
+}
+
+.Single_Bid_section {
+  width: 100%;
+  margin-bottom: 4px;
+  background-color: rgb(228, 216, 216);
+  border-radius: 7px;
+  border-bottom-style: groove;
+  transition: box-shadow 0.3s;
+  font-size: 1.3rem;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.Bid_img {
+  margin-left: 0px;
+  width: 50%;
+  height: 17%;
+
+  border-radius: 7px;
+}
+
+.Uername_section {
+}
+
+.Started_section {
+}
+
+.Initial_price_section {
+}
+
+.People_section {
+  font-size: 1.5rem;
+}
+
+ImUsers {
+}
+
+.Title_Section {
+  margin-left: 13%;
+  margin-top: -46px;
+  font-weight: bolder;
+  font-size: 27px;
+  text-decoration: underline wavy black;
+}
+
+.parent_section {
+  width: 50%;
+  float: right;
+  height: 100%;
+  align-content: center;
+  justify-content: center;
+}
+
+.Img_container {
+  width: 50%;
+  height: 100%;
 }

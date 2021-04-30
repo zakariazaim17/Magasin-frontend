@@ -40,8 +40,13 @@ const Profile = () => {
 
   const options = [
     { value: "animals", label: "animals" },
-    { value: "strawberry", label: "Strawberry" },
-    { value: "vanilla", label: "Vanilla" },
+    { value: "sports&hobbies", label: "Sport & Hobbies" },
+    { value: "home&kitchen", label: "Home & Kitchen" },
+    { value: "fashion&clothing", label: "Fashion & Clothing" },
+    { value: "electronics", label: "Electronics" },
+    { value: "arts&crafts", label: "Arts & Crafts" },
+    { value: "automotive", label: "Automotive" },
+    { value: "beauty&self-care", label: "Beauty & Self-Care" },
   ];
 
   useEffect(() => {
