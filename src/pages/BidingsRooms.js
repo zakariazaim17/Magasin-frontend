@@ -78,7 +78,7 @@ query {
     e.preventDefault();
 
     const data = {
-      name: "zaki",
+      name: localStorage.getItem("cl"),
       content: messagecontent.current.value,
       room: id,
     };

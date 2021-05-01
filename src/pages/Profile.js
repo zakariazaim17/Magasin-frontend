@@ -4,6 +4,7 @@ import Select from "react-select";
 import "../css/Profile.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { MdCreate } from "react-icons/md";
 const ServerUrl = "https://my-superi-app.jelastic.metropolia.fi/graphql";
 //const ServerUrl = "http://localhost:3004/graphql";
 
@@ -12,6 +13,11 @@ const Profile = () => {
   const ProductPrice = useRef();
   const [ProductCategory, setProductCategory] = useState();
   const ProductQuantity = useRef();
+  const [firstPhase, setfirstPhase] = useState(true);
+  const [secondPhase, setsecondPhase] = useState(false);
+  const [thirdPhase, setthirdPhase] = useState(false);
+
+  const [inputenabeled, setinputenabled] = useState(true);
 
   const [promoselectation, setpromoSelection] = useState();
   const [expiryselection, setexpiryselection] = useState(null);
@@ -65,6 +71,8 @@ const Profile = () => {
       const imgid = await addedImg.data;
       setProductImgUrl(imgid);
       console.log(imgid);
+      setfirstPhase(false);
+      setsecondPhase(true);
     } catch (e) {
       console.log(e.message);
     }
@@ -193,6 +201,44 @@ const Profile = () => {
       const succesfulPromo = await resultedPromo.json();
       setCodePromoID(succesfulPromo.data.AddDiscount.id);
       console.log(succesfulPromo.data.AddDiscount.id);
+      setsecondPhase(false);
+      setthirdPhase(true);
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
+
+  const ModifyInfo = async (e) => {
+    const requestbody = {
+      query: `
+  mutation {
+    UpdateClient(
+      id: "${localStorage.getItem("CurentcliEnt")}"
+      username: "${currentUser.username}"
+      Email: "${currentUser.Email}"
+    ) {
+      id
+      username
+      Email
+      Joined
+    }
+  }`,
+    };
+
+    try {
+      console.log(currentUser.username, currentUser.Email);
+      const updatedUser = await fetch(ServerUrl, {
+        method: "POST",
+        body: JSON.stringify(requestbody),
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("ClientToken")}`,
+          "Content-Type": "application/json",
+        },
+      });
+
+      const results_Updated = await updatedUser.json();
+      console.log(results_Updated);
+      // window.location.reload();
     } catch (e) {
       console.log(e.message);
     }
@@ -238,113 +284,174 @@ const Profile = () => {
   };
   return (
     <div className="main-wrapper">
-      <h1>this is Profile</h1>
-      <br></br>
       {currentUser !== null && (
-        <div>
-          <p>{currentUser.Email}</p>
-          <p>{currentUser.Joined}</p>
-          <p>{currentUser.Totalproducts}</p>
-          <p>{currentUser.Verified}</p>
-          <p>{currentUser.username}</p>
-        </div>
-      )}
-      <br></br>
-
-      <form onSubmit={handleSubmit} encType="multipart/form-data">
-        <div>
-          <input
-            type="file"
-            accept=".png, .jpg, .jpeg"
-            name="photo"
-            onChange={handlePhoto}
-          />
-          <input type="submit" />
-        </div>
-        <br></br>
-        <div>
-          <p>Choose your Product Category </p>
-          <Select
-            options={options}
-            className="select"
-            onChange={(val) => setProductCategory(val.value)}
-          />
-        </div>
-
-        <br></br>
-
-        <div onChange={(val) => setpromoSelection(val.target.value)}>
-          <input type="radio" value="with promo" name="add promo" />
-          with promo
-          <input
-            type="radio"
-            value="without promo"
-            name="add promo"
-            defaultChecked="true"
-          />
-          no promo
-        </div>
-        {promoselectation === "with promo" && (
+        <div className="Client_Info_section">
           <div>
-            <p>Add codePromo to your product</p>
-            <label>Code</label>
-            <input type="text" placeholder="code" ref={ProductCodePromo} />
-            <label>Percentage</label>
+            <label>Username</label>
             <input
-              type="text"
-              placeholder="Pecentage"
-              ref={ProductCodePromoPercent}
+              value={currentUser.username}
+              disabled={inputenabeled}
+              onChange={(e) =>
+                setcurrentUser({ ...currentUser, username: e.target.value })
+              }
             />
-            <div onChange={(val) => setexpiryselection(val.target.value)}>
-              <input type="radio" value="with expiry" name="add expiry" />
-              with expiry
-              <input
-                type="radio"
-                value="without expiry"
-                name="add expiry"
-                defaultChecked="true"
+          </div>
+          <div>
+            <label>Email</label>
+            <input
+              value={currentUser.Email}
+              disabled={inputenabeled}
+              onChange={(e) =>
+                setcurrentUser({ ...currentUser, Email: e.target.value })
+              }
+            />
+          </div>
+          <div>
+            <label>totalProducts</label>
+            <p>{currentUser.Totalproducts}</p>
+          </div>
+          <div>
+            <label>Joined</label>
+            <p>{currentUser.Joined}</p>
+          </div>
+          <div>
+            <label>Account verification</label>
+            <p>{currentUser.Verified.toString()}</p>
+            {inputenabeled && (
+              <MdCreate
+                onClick={() => setinputenabled(false)}
+                className="edit_icon"
               />
-              no expiry
-            </div>
-            {expiryselection === "with expiry" && (
-              <>
-                <label>Pick expiry date</label>
-                <DatePicker
-                  dateFormat="yyyy/MM/dd"
-                  selected={expirydate}
-                  onChange={(date) => setexpirydate(date)}
-                />
-              </>
+            )}
+            {!inputenabeled && (
+              <button
+                className="Cancel_modification_btn"
+                onClick={() => setinputenabled(true)}
+              >
+                Cancel
+              </button>
             )}
 
-            <button onClick={handleCodePromoSubmission}>add Promo</button>
+            {!inputenabeled && (
+              <button className="Modify_info_btn" onClick={ModifyInfo}>
+                Edit
+              </button>
+            )}
+          </div>
+        </div>
+      )}
+
+      <form
+        onSubmit={handleSubmit}
+        encType="multipart/form-data"
+        className="Add_Product_section"
+      >
+        <span>Add Product</span>
+        {firstPhase && !secondPhase && !thirdPhase && (
+          <div>
+            <input
+              type="file"
+              accept=".png, .jpg, .jpeg"
+              name="photo"
+              onChange={handlePhoto}
+            />
+            <input type="submit" />
           </div>
         )}
-        <div>
-          <label>Title</label>
-          <input type="text" ref={ProductTitle} />
-        </div>
-        <div>
-          <label>Description</label>
-          <input type="text" ref={ProductDescription} />
-        </div>
-        <div>
-          <label>Price</label>
-          <input type="text" ref={ProductPrice} />
-        </div>
-        <div>
-          <label>Quantity</label>
-          <input type="text" ref={ProductQuantity} />
-        </div>
+        {secondPhase && !firstPhase && !thirdPhase && (
+          <div>
+            <div>
+              <p>Choose your Product Category </p>
+              <Select
+                options={options}
+                className="select"
+                onChange={(val) => setProductCategory(val.value)}
+              />
+            </div>
+
+            <div onChange={(val) => setpromoSelection(val.target.value)}>
+              <input type="radio" value="with promo" name="add promo" />
+              with promo
+              <input
+                type="radio"
+                value="without promo"
+                name="add promo"
+                defaultChecked="true"
+              />
+              no promo
+            </div>
+
+            {promoselectation === "with promo" && (
+              <div>
+                <p>Add codePromo to your product</p>
+                <label>Code</label>
+                <input type="text" placeholder="code" ref={ProductCodePromo} />
+                <label>Percentage</label>
+                <input
+                  type="text"
+                  placeholder="Pecentage"
+                  ref={ProductCodePromoPercent}
+                />
+                <div onChange={(val) => setexpiryselection(val.target.value)}>
+                  <input type="radio" value="with expiry" name="add expiry" />
+                  with expiry
+                  <input
+                    type="radio"
+                    value="without expiry"
+                    name="add expiry"
+                    defaultChecked="true"
+                  />
+                  no expiry
+                </div>
+                {expiryselection === "with expiry" && (
+                  <>
+                    <label>Pick expiry date</label>
+                    <DatePicker
+                      dateFormat="yyyy/MM/dd"
+                      selected={expirydate}
+                      onChange={(date) => setexpirydate(date)}
+                    />
+                  </>
+                )}
+
+                <button onClick={handleCodePromoSubmission}>add Promo</button>
+              </div>
+            )}
+            {promoselectation !== "with promo" && (
+              <button
+                onClick={() => {
+                  setfirstPhase(false);
+                  setthirdPhase(true);
+                }}
+              >
+                Continue
+              </button>
+            )}
+          </div>
+        )}
+
+        {thirdPhase && (
+          <div>
+            <div>
+              <label>Title</label>
+              <input type="text" ref={ProductTitle} />
+            </div>
+            <div>
+              <label>Description</label>
+              <input type="text" ref={ProductDescription} />
+            </div>
+            <div>
+              <label>Price</label>
+              <input type="text" ref={ProductPrice} />
+            </div>
+            <div>
+              <label>Quantity</label>
+              <input type="text" ref={ProductQuantity} />
+            </div>
+            <button onClick={AddProduct}>Add Product</button>
+          </div>
+        )}
       </form>
-      <button onClick={AddProduct}>Add Product</button>
-      <br></br>
-
-      <br></br>
-
-      <br></br>
-
-      <br></br>
     </div>
   );
 };

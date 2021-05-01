@@ -8,6 +8,7 @@ import "./css/App.css";
 import GeneralProducts from "./pages/GeneralProducts.js";
 import MainNavigation from "./Navigation/MainNavigation.js";
 import Authcontext from "./context/AuthContext.js";
+import favourites from "./pages/Favourites.js";
 
 import specificProduct from "./pages/SpecificProduct.js";
 import BidingsRooms from "./pages/BidingsRooms.js";
@@ -85,6 +86,9 @@ function App() {
                   component={specificProduct}
                   exact
                 />
+              )}
+              {ClientToken && (
+                <Route path="/favourites" component={favourites} exact />
               )}
             </Switch>
           </main>

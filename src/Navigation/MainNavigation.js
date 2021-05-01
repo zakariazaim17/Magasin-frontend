@@ -1,7 +1,13 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import "./MainNAvigation.css";
-import { FcAdvertising, FcManager, FcPackage, FcRight } from "react-icons/fc";
+import {
+  FcAdvertising,
+  FcManager,
+  FcPackage,
+  FcRight,
+  FcRating,
+} from "react-icons/fc";
 
 import logo from "../lotties/logo.png";
 
@@ -24,6 +30,10 @@ const MainNavigation = (props) => {
       <nav className="main-navigation_item">
         {ClientToken && (
           <ul>
+            <li>
+              <FcRating />
+              <NavLink to="/favourites">Favourites</NavLink>
+            </li>
             <li>
               <NavLink to="/myproducts">
                 <FcPackage />

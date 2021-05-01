@@ -41,10 +41,6 @@
 .main-navigation_item a.active,
 .main-navigation_item button:hover {
   color: orange;
-  border-color: orange;
-  border-style: ridge;
-  border-width: 0.6px;
-  border-radius: 3px;
 }
 
 h1 {

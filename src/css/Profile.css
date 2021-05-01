@@ -1,3 +1,42 @@
 .select {
   width: 20%;
 }
+
+.Add_Product_section {
+  float: right;
+  width: 50%;
+}
+
+.Client_Info_section {
+  float: left;
+  width: 50%;
+}
+
+.Client_Info_section label {
+  float: left;
+  width: 50%;
+  margin-left: 10px;
+}
+
+.Client_Info_section div {
+  background-color: beige;
+  width: 80%;
+  align-items: center;
+  justify-content: center;
+  font-size: 21px;
+  border-radius: 5px;
+}
+
+.Cancel_modification_btn {
+  float: right;
+}
+
+.Client_Info_section div div {
+  width: 100%;
+}
+
+.edit_icon {
+  cursor: pointer;
+  font-size: 20px;
+  margin-left: 10px;
+}
