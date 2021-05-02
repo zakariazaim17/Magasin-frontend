@@ -21,7 +21,7 @@ const BidingsRooms = (props) => {
 
   useEffect(() => {
     socketRef.current = io.connect(
-      "https://my-superi-app.jelastic.metropolia.fi/"
+      "http://my-superi-app.jelastic.metropolia.fi/"
     );
     socketRef.current.emit("room", id);
     socketRef.current.on("group message", (msg) => {
