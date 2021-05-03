@@ -26,6 +26,7 @@ const Categories = () => {
         method: "POST",
         body: JSON.stringify(requestbody),
         headers: {
+          Authorization: `Bearer ${localStorage.getItem("ClientToken")}`,
           "Content-Type": "application/json",
         },
       });

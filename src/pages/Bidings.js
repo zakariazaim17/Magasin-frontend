@@ -5,6 +5,8 @@ import axios from "axios";
 import { FcStart } from "react-icons/fc";
 import { FaBeer } from "react-icons/fa";
 import { ImUsers } from "react-icons/im";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const ServerUrl = "https://my-superi-app.jelastic.metropolia.fi/graphql";
 //const ServerUrl = "http://localhost:3004/graphql";
 const Bidings = () => {
@@ -14,6 +16,7 @@ const Bidings = () => {
   const Bid_Initial_Price = useRef();
   const Bid_Images = useRef();
   const [BidImgUrl, setBidImgUrl] = useState();
+  const [addvisible, setaddvisible] = useState();
 
   const [newImg, setnewImg] = useState({
     photo: "",
@@ -45,6 +48,7 @@ const Bidings = () => {
         method: "POST",
         body: JSON.stringify(requestbody),
         headers: {
+          Authorization: `Bearer ${localStorage.getItem("ClientToken")}`,
           "Content-Type": "application/json",
         },
       });
@@ -62,7 +66,7 @@ const Bidings = () => {
   };
 
   const CreateBiding = async () => {
-    UploadBidImg();
+    // UploadBidImg();
 
     const requestbody = {
       query: `
@@ -78,13 +82,13 @@ const Bidings = () => {
           }
         }`,
     };
-
     try {
       console.log(Bid_Title, Bid_Initial_Price, Bid_Images);
       const createdBid = await fetch(ServerUrl, {
         method: "POST",
         body: JSON.stringify(requestbody),
         headers: {
+          Authorization: `Bearer ${localStorage.getItem("ClientToken")}`,
           "Content-Type": "application/json",
         },
       });
@@ -95,6 +99,7 @@ const Bidings = () => {
       setAddBiding();
       const result_Bid = await createdBid.json();
       console.log(result_Bid);
+      toast.success("successful", { autoClose: 500 });
       window.location.reload();
     } catch (err) {
       console.log(err.message);
@@ -115,6 +120,7 @@ const Bidings = () => {
       );
       const imgid = await addedImg.data;
       setBidImgUrl(imgid);
+      setaddvisible(true);
       console.log(imgid);
     } catch (e) {
       console.log(e.message);
@@ -137,7 +143,11 @@ const Bidings = () => {
             <input placeholder="Title" ref={Bid_Title} />
           </div>
           <div className="bidSection">
-            <input placeholder="Initial Price" ref={Bid_Initial_Price} />
+            <input
+              placeholder="Initial Price"
+              ref={Bid_Initial_Price}
+              type="Number"
+            />
           </div>
           <div className="bidSection">
             <input
@@ -146,10 +156,16 @@ const Bidings = () => {
               name="photo"
               onChange={handlePhoto}
             />
+            {newImg.photo && !addvisible && (
+              <button onClick={() => UploadBidImg()}>add Image</button>
+            )}
           </div>
-          <button className="Add_Bid_btn" onClick={() => CreateBiding()}>
-            Add
-          </button>
+
+          {addvisible && (
+            <button className="Add_Bid_btn" onClick={() => CreateBiding()}>
+              confirm
+            </button>
+          )}
           <button className="Cancel_Bid_btn" onClick={() => setAddBiding()}>
             Cancel
           </button>
@@ -176,15 +192,9 @@ const Bidings = () => {
                       <FcStart /> Bid Started
                     </p>
                   </div>
-
+                  <p>{obj.Title}</p>
                   <div className="Initial_price_section">
                     <p>Starts:€ {obj.Initialprice}</p>
-                  </div>
-                  <div className="People_section">
-                    <div>
-                      {obj.participants && <p>{obj.participants}</p>}
-                      <ImUsers />
-                    </div>
                   </div>
                 </div>
               </NavLink>

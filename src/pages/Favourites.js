@@ -26,6 +26,7 @@ const Favourites = () => {
         method: "POST",
         body: JSON.stringify(requestBody),
         headers: {
+          Authorization: `Bearer ${localStorage.getItem("ClientToken")}`,
           "Content-type": "application/json",
         },
       });
@@ -60,6 +61,7 @@ const Favourites = () => {
         method: "POST",
         body: JSON.stringify(requestBody),
         headers: {
+          Authorization: `Bearer ${localStorage.getItem("ClientToken")}`,
           "Content-type": "application/json",
         },
       });

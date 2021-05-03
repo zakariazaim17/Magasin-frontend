@@ -5,10 +5,16 @@ import "../css/Profile.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { MdCreate } from "react-icons/md";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const ServerUrl = "https://my-superi-app.jelastic.metropolia.fi/graphql";
 //const ServerUrl = "http://localhost:3004/graphql";
 
+toast.configure();
+
 const Profile = () => {
+  const [test, settest] = useState();
   const ProductTitle = useRef();
   const ProductPrice = useRef();
   const [ProductCategory, setProductCategory] = useState();
@@ -89,7 +95,7 @@ const Profile = () => {
     ) {
       return true;
     } else {
-      return false;
+      return toast("missing inputs");
     }
   };
 
@@ -132,6 +138,7 @@ const Profile = () => {
           method: "POST",
           body: JSON.stringify(requestbody),
           headers: {
+            Authorization: `Bearer ${localStorage.getItem("ClientToken")}`,
             "Content-Type": "application/json",
           },
         });
@@ -142,6 +149,7 @@ const Profile = () => {
 
         const succesfulProductinsert = await addedProduct.json();
         if (succesfulProductinsert.data.AddProduct.OnStore) {
+          notifySuccess();
           window.location.reload();
         }
       } catch (e) {
@@ -155,7 +163,8 @@ const Profile = () => {
     setNewUser({ ...newUser, photo: e.target.files[0] });
   };
 
-  const handleCodePromoSubmission = async () => {
+  const handleCodePromoSubmission = async (e) => {
+    e.preventDefault();
     const requestbody =
       expiryselection === "with expiry"
         ? {
@@ -191,6 +200,7 @@ const Profile = () => {
         method: "POST",
         body: JSON.stringify(requestbody),
         headers: {
+          Authorization: `Bearer ${localStorage.getItem("ClientToken")}`,
           "Content-Type": "application/json",
         },
       });
@@ -201,6 +211,7 @@ const Profile = () => {
       const succesfulPromo = await resultedPromo.json();
       setCodePromoID(succesfulPromo.data.AddDiscount.id);
       console.log(succesfulPromo.data.AddDiscount.id);
+      setfirstPhase(false);
       setsecondPhase(false);
       setthirdPhase(true);
     } catch (e) {
@@ -282,6 +293,11 @@ const Profile = () => {
       console.log(e.message);
     }
   };
+
+  const notifySuccess = () => {
+    toast.success("successful", { autoClose: 500 });
+  };
+
   return (
     <div className="main-wrapper">
       {currentUser !== null && (
@@ -342,7 +358,7 @@ const Profile = () => {
       )}
 
       <form
-        onSubmit={handleSubmit}
+        //onSubmit={handleSubmit}
         encType="multipart/form-data"
         className="Add_Product_section"
       >
@@ -355,7 +371,7 @@ const Profile = () => {
               name="photo"
               onChange={handlePhoto}
             />
-            <input type="submit" />
+            <button onClick={handleSubmit}>Post</button>
           </div>
         )}
         {secondPhase && !firstPhase && !thirdPhase && (
@@ -388,7 +404,7 @@ const Profile = () => {
                 <input type="text" placeholder="code" ref={ProductCodePromo} />
                 <label>Percentage</label>
                 <input
-                  type="text"
+                  type="Number"
                   placeholder="Pecentage"
                   ref={ProductCodePromoPercent}
                 />
@@ -414,10 +430,12 @@ const Profile = () => {
                   </>
                 )}
 
-                <button onClick={handleCodePromoSubmission}>add Promo</button>
+                {ProductCategory && (
+                  <button onClick={handleCodePromoSubmission}>add Promo</button>
+                )}
               </div>
             )}
-            {promoselectation !== "with promo" && (
+            {promoselectation !== "with promo" && ProductCategory && (
               <button
                 onClick={() => {
                   setfirstPhase(false);
@@ -442,11 +460,11 @@ const Profile = () => {
             </div>
             <div>
               <label>Price</label>
-              <input type="text" ref={ProductPrice} />
+              <input type="Number" ref={ProductPrice} />
             </div>
             <div>
               <label>Quantity</label>
-              <input type="text" ref={ProductQuantity} />
+              <input type="Number" ref={ProductQuantity} />
             </div>
             <button onClick={AddProduct}>Add Product</button>
           </div>

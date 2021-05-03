@@ -3,6 +3,9 @@ import { NavLink } from "react-router-dom";
 //const ServerUrl = "http://localhost:3004/graphql";
 import "../css/GeneralProducts.css";
 import { AiOutlineStar } from "react-icons/ai";
+
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const ServerUrl = "https://my-superi-app.jelastic.metropolia.fi/graphql";
 
 const GeneralProducts = (props) => {
@@ -38,6 +41,7 @@ const GeneralProducts = (props) => {
       });
       const favourite = await addedFavourite.json();
       console.log(favourite.data.AddFavourites);
+      toast.success("successful added to favourites", { autoClose: 1000 });
     } catch (e) {
       console.log(e.message);
     }

@@ -49,6 +49,7 @@ const MyProducts = () => {
         method: "POST",
         body: JSON.stringify(requestbody),
         headers: {
+          Authorization: `Bearer ${localStorage.getItem("ClientToken")}`,
           "Content-Type": "application/json",
         },
       });
@@ -82,6 +83,7 @@ const MyProducts = () => {
         method: "POST",
         body: JSON.stringify(requestbody),
         headers: {
+          Authorization: `Bearer ${localStorage.getItem("ClientToken")}`,
           "Content-Type": "application/json",
         },
       });
@@ -105,6 +107,7 @@ const MyProducts = () => {
     const deletedProduct = await fetch(ServerUrl, {
       method: "POST",
       headers: {
+        Authorization: `Bearer ${localStorage.getItem("ClientToken")}`,
         "Content-type": "application/json",
       },
       body: JSON.stringify(requestbody),

@@ -110,6 +110,7 @@ query {
       const bid = await fetch(ServerUrl, {
         method: "POST",
         headers: {
+          Authorization: `Bearer ${localStorage.getItem("ClientToken")}`,
           "Content-Type": "application/json",
         },
         body: JSON.stringify(requestbody),

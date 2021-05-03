@@ -16,6 +16,7 @@ const MainNavigation = (props) => {
     try {
       localStorage.removeItem("ClientToken");
       localStorage.removeItem("CurentcliEnt");
+      localStorage.removeItem("cl");
       window.location.reload();
     } catch (e) {
       console.log(e.message);

@@ -80,7 +80,7 @@ const SpecificProduct = (props) => {
       };
       console.log("specificProduct", { agent }, fetchOption);
       const payment = await fetch(
-        "https://localhost:8000/magasin/paymentGateway/",
+        "https://my-superi-app.jelastic.metropolia.fi/magasin/paymentGateway/",
         //{ agent },
         fetchOption
       );

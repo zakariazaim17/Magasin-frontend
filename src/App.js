@@ -54,6 +54,7 @@ function App() {
               {!ClientToken && <Redirect from="/myproducts" to="/auth" />}
               {!ClientToken && <Redirect from="/profile" to="/auth" />}
               {!ClientToken && <Redirect from="/bidings" to="/auth" />}
+              {!ClientToken && <Redirect from="/favourites" to="/auth" />}
               {!ClientToken && <Redirect from="/" to="/auth" exact />}
 
               {ClientToken && <Redirect from="/" to="/categories" exact />}
