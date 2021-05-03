@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const ServerUrl = "https://my-superi-app.jelastic.metropolia.fi/graphql";
-//const ServerUrl = "http://localhost:3004/graphql";
+//const ServerUrl = "https://localhost:8000/graphql";
 
 toast.configure();
 
@@ -99,7 +99,8 @@ const Profile = () => {
     }
   };
 
-  const AddProduct = async () => {
+  const AddProduct = async (e) => {
+    e.preventDefault();
     const requestbody = CodePromoID
       ? {
           query: `
@@ -144,12 +145,13 @@ const Profile = () => {
         });
 
         if (addedProduct.status !== 200 && addedProduct.status !== 201) {
-          throw new Error("Failed");
+          throw new Error("Failed and tfoo");
         }
 
         const succesfulProductinsert = await addedProduct.json();
         if (succesfulProductinsert.data.AddProduct.OnStore) {
           notifySuccess();
+
           window.location.reload();
         }
       } catch (e) {
@@ -249,7 +251,6 @@ const Profile = () => {
 
       const results_Updated = await updatedUser.json();
       console.log(results_Updated);
-      // window.location.reload();
     } catch (e) {
       console.log(e.message);
     }
@@ -295,7 +296,7 @@ const Profile = () => {
   };
 
   const notifySuccess = () => {
-    toast.success("successful", { autoClose: 500 });
+    toast.success("successful", { autoClose: 2000 });
   };
 
   return (
