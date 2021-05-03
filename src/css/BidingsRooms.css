@@ -17,7 +17,7 @@
 .messages {
   border-radius: 5px;
   margin-top: 40px;
-  background-color: blueviolet;
+  background-color: rgb(227, 221, 233);
 }
 
 .Chat_section {
@@ -49,4 +49,10 @@
 }
 form_section {
   width: 100%;
+}
+
+.Owner_span {
+  color: rgb(158, 22, 33);
+  font-size: 20px;
+  text-decoration: underline wavy rebeccapurple;
 }

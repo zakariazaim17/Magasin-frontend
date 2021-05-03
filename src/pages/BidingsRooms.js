@@ -165,7 +165,16 @@ query {
               return (
                 <div key={index}>
                   <p>
-                    {obj.name} : {obj.content}
+                    <span
+                      className={
+                        obj.name === singleBid.Owner.username
+                          ? "Owner_span"
+                          : "client_span"
+                      }
+                    >
+                      {obj.name}
+                    </span>
+                    :{obj.content}
                   </p>
                 </div>
               );

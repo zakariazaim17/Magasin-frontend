@@ -88,7 +88,7 @@ const GeneralProducts = (props) => {
       {Products.length !== 0 &&
         Products.map((obj) => {
           return (
-            <div>
+            <div key={obj.id}>
               <NavLink
                 key={obj.id}
                 to={`/categories/${id}/${obj.id}`}
