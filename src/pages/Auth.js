@@ -4,7 +4,7 @@ import Alert from "@material-ui/lab/Alert";
 import "../css/Auth.css";
 import { Player } from "@lottiefiles/react-lottie-player";
 const ServerUrl = "https://my-superi-app.jelastic.metropolia.fi/graphql";
-//const ServerUrl = "http://localhost:3004/graphql";
+//const ServerUrl = "//localhost:3004/graphql";
 const Auth = () => {
   const context = React.useContext(Authcontext);
   const [authStatus, setauthStatus] = useState("login");

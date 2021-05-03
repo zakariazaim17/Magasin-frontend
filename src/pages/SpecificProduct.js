@@ -1,6 +1,14 @@
 import React, { useState, useEffect } from "react";
 import "../css/SpecificProduct.css";
 import { FcOk } from "react-icons/fc";
+import StripeCheckout from "react-stripe-checkout";
+import https from "https";
+import dotenv from "dotenv";
+dotenv.config();
+const agent = new https.Agent({
+  rejectUnauthorized: false,
+});
+
 const ServerUrl = "https://my-superi-app.jelastic.metropolia.fi/graphql";
 
 //const ServerUrl = "http://localhost:3004/graphql";
@@ -54,6 +62,35 @@ const SpecificProduct = (props) => {
       console.log(e.message);
     }
   };
+
+  const EnablePurchase = async (token) => {
+    const requestbody = {
+      token,
+      SingleProduct,
+    };
+
+    try {
+      const fetchOption = {
+        method: "POST",
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(requestbody),
+      };
+      console.log("specificProduct", { agent }, fetchOption);
+      const payment = await fetch(
+        "https://localhost:8000/magasin/paymentGateway/",
+        //{ agent },
+        fetchOption
+      );
+      console.log(payment);
+      const { status } = payment;
+      console.log(status);
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
   return (
     <div className="SpecificProductWrapper">
       {SingleProduct !== null && (
@@ -82,8 +119,14 @@ const SpecificProduct = (props) => {
               <span>Quantity: </span>
               {SingleProduct.Quantity} piece(s)
             </p>
-
-            <button className="Buy-btn">Buy</button>
+            <StripeCheckout
+              stripeKey={process.env.REACT_APP_PUBKEY_STRIPE}
+              token={EnablePurchase}
+              name="Buy"
+              amount={SingleProduct.Price * 100}
+            >
+              <button className="Buy-btn">Purchase</button>
+            </StripeCheckout>
           </div>
         </div>
       )}
@@ -91,3 +134,5 @@ const SpecificProduct = (props) => {
   );
 };
 export default SpecificProduct;
+
+//set HTTPS=true&&  please add this to the deployed version and remember to change the url in serve.js to https for socket to work
