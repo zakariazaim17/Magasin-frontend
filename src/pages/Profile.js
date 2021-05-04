@@ -249,7 +249,10 @@ const Profile = () => {
       });
 
       const results_Updated = await updatedUser.json();
+      setinputenabled(true);
       console.log(results_Updated);
+      toast.success("successful", { autoClose: 2000 });
+      window.location.reload();
     } catch (e) {
       console.log(e.message);
     }
@@ -357,11 +360,7 @@ const Profile = () => {
         </div>
       )}
 
-      <form
-        //onSubmit={handleSubmit}
-        encType="multipart/form-data"
-        className="Add_Product_section"
-      >
+      <form encType="multipart/form-data" className="Add_Product_section">
         <span>Add Product</span>
         {firstPhase && !secondPhase && !thirdPhase && (
           <div>

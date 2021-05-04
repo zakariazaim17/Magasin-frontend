@@ -133,6 +133,7 @@ const MyProducts = () => {
           <div className="modifySection">
             <label>Price</label>
             <input
+              type="Number"
               value={modifyProduct.Price}
               onChange={(e) =>
                 setmodifyProduct({ ...modifyProduct, Price: e.target.value })
@@ -154,6 +155,7 @@ const MyProducts = () => {
           <div className="modifySection">
             <label>Quantity</label>
             <input
+              type="Number"
               value={modifyProduct.Quantity}
               onChange={(e) =>
                 setmodifyProduct({ ...modifyProduct, Quantity: e.target.value })
