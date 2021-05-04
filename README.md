@@ -1,5 +1,7 @@
 # Magasin-frontend
 
+link to heroku: https://e-comm-magasin.herokuapp.com/  note jelastic might be sleeping!! 
+
 # Table of Contents
 
   1. [Description](#Description)
