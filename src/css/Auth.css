@@ -100,3 +100,28 @@ h3 {
   font-size: 1.3rem;
   text-align: center;
 }
+
+.register_Registerbtn {
+  margin-left: 10px;
+  background-color: transparent;
+  color: white;
+  width: 130px;
+  border-radius: 20px;
+}
+.register_Registerbtn:hover {
+  color: black;
+  background-color: white;
+}
+
+.switch_login_Register {
+  margin-right: 20px;
+  width: 170px;
+  border-radius: 20px;
+  border-color: white;
+  background-color: black;
+  color: white;
+}
+
+.header_register {
+  font-size: 25px;
+}

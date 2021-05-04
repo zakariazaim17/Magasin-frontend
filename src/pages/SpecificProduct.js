@@ -135,4 +135,4 @@ const SpecificProduct = (props) => {
 };
 export default SpecificProduct;
 
-//set HTTPS=true&&  please add this to the deployed version and remember to change the url in serve.js to https for socket to work
+//set HTTPS=true&&  please add this to the deployed version and remember to change the url in server.js to https for socket to work

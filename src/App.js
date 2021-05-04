@@ -1,4 +1,3 @@
-//import logo from "./logo.svg";
 import Auth from "./pages/Auth.js";
 import Bidings from "./pages/Bidings.js";
 import Profile from "./pages/Profile.js";
@@ -21,7 +20,7 @@ import {
 } from "react-router-dom";
 import React, { useState } from "react";
 
-function App() {
+const App = () => {
   const ClientToken = localStorage.getItem("ClientToken");
   const [Clientdata, setClientdata] = useState({
     token: null,
@@ -97,12 +96,6 @@ function App() {
       </React.Fragment>
     </Router>
   );
-}
+};
 
 export default App;
-
-/*
-render={(props) => {
-                  <KK id={props.match.params.id} />;
-                }} 
-                */

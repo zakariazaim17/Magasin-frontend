@@ -1,10 +1,14 @@
 import React, { useState, useRef } from "react";
 import Authcontext from "../context/AuthContext.js";
-import Alert from "@material-ui/lab/Alert";
 import "../css/Auth.css";
+import { toast } from "react-toastify";
+
 import { Player } from "@lottiefiles/react-lottie-player";
 const ServerUrl = "https://my-superi-app.jelastic.metropolia.fi/graphql";
 //const ServerUrl = "//localhost:3004/graphql";
+
+toast.configure();
+
 const Auth = () => {
   const context = React.useContext(Authcontext);
   const [authStatus, setauthStatus] = useState("login");
@@ -75,15 +79,10 @@ const Auth = () => {
       password.trim().length === 0 ||
       username.trim().length === 0
     ) {
-      return (
-        <Alert severity="warning">
-          This is a warning alert — check it out!
-        </Alert>
-      );
-    }
-
-    const requestbody = {
-      query: `
+      toast.warning("missing fields", { autoClose: 3500 });
+    } else {
+      const requestbody = {
+        query: `
         mutation{
             AddClient(
                 username:"${username}",
@@ -95,24 +94,33 @@ const Auth = () => {
          username
         }
         }`,
-    };
+      };
 
-    try {
-      const addeduser = await fetch(ServerUrl, {
-        method: "POST",
-        body: JSON.stringify(requestbody),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      try {
+        const addeduser = await fetch(ServerUrl, {
+          method: "POST",
+          body: JSON.stringify(requestbody),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
 
-      if (addeduser.status !== 200 && addeduser.status !== 201) {
-        throw new Error("Failed");
+        if (addeduser.status !== 200 && addeduser.status !== 201) {
+          throw new Error("Failed");
+        }
+        const resultUser = await addeduser.json();
+        console.log(resultUser.data.AddClient);
+
+        emaildataregister.current.value = "";
+        usernamedataregister.current.value = "";
+        passworddataregister.current.value = "";
+        setauthStatus("login");
+
+        toast.success("successful", { autoClose: 2000 });
+        toast("Switch to login");
+      } catch (e) {
+        console.log(e.message);
       }
-      const resultUser = await addeduser.json();
-      console.log(resultUser.data.AddClient);
-    } catch (e) {
-      console.log(e.message);
     }
   };
 
@@ -153,7 +161,7 @@ const Auth = () => {
       )}
       {authStatus === "register" && (
         <div>
-          <h3>Register</h3>
+          <h3 className="header_register">Register</h3>
           <form className="auth-form" onSubmit={RegisterationHandler}>
             <div className="form-control">
               <label htmlFor="email">E-mail</label>
@@ -169,8 +177,13 @@ const Auth = () => {
               <input type="password" id="password" ref={passworddataregister} />
             </div>
             <div className="form-actions">
-              <button type="submit">Register</button>
-              <button onClick={() => setauthStatus("login")}>
+              <button type="submit" className="register_Registerbtn">
+                Register
+              </button>
+              <button
+                onClick={() => setauthStatus("login")}
+                className="switch_login_Register"
+              >
                 Switch to Login
               </button>
             </div>

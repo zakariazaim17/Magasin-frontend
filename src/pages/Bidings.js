@@ -3,8 +3,7 @@ import { NavLink } from "react-router-dom";
 import "../css/Bidings.css";
 import axios from "axios";
 import { FcStart } from "react-icons/fc";
-import { FaBeer } from "react-icons/fa";
-import { ImUsers } from "react-icons/im";
+
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 const ServerUrl = "https://my-superi-app.jelastic.metropolia.fi/graphql";
@@ -66,8 +65,6 @@ const Bidings = () => {
   };
 
   const CreateBiding = async () => {
-    // UploadBidImg();
-
     const requestbody = {
       query: `
         mutation {

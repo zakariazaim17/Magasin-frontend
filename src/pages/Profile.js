@@ -14,7 +14,6 @@ const ServerUrl = "https://my-superi-app.jelastic.metropolia.fi/graphql";
 toast.configure();
 
 const Profile = () => {
-  const [test, settest] = useState();
   const ProductTitle = useRef();
   const ProductPrice = useRef();
   const [ProductCategory, setProductCategory] = useState();

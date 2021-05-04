@@ -15,8 +15,6 @@ const BidingsRooms = (props) => {
   const [chat, setchat] = useState([]);
   const messagecontent = useRef();
 
-  const [current_Client, setCurrent_Client] = useState();
-
   console.log("user joined room", id);
 
   useEffect(() => {
@@ -37,42 +35,7 @@ const BidingsRooms = (props) => {
 
   useEffect(() => {
     GetBiding();
-    //GetUser();
   });
-
-  /* const GetUser = async () => {
-    const requestbody = {
-      query: `
-         
-query {
-  GetClientById(id: "${localStorage.getItem("CurentcliEnt")}") {
-    username
-  }
-}
-`,
-    };
-
-    try {
-      const user = await fetch(ServerUrl, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("ClientToken")}`,
-        },
-        body: JSON.stringify(requestbody),
-      });
-      if (user.status !== 200 && user.status !== 201) {
-        throw new Error("Failed");
-      }
-      const result_current_user = await user.json();
-      console.log(result_current_user.data.GetClientById);
-      setCurrent_Client(result_current_user.data.GetClientById);
-    } catch (e) {
-      console.log(e.message);
-    }
-  };
-
-  */
 
   const handlemessagesubmit = (e) => {
     e.preventDefault();
@@ -82,8 +45,6 @@ query {
       content: messagecontent.current.value,
       room: id,
     };
-
-    //current_Client.username
 
     socketRef.current.emit("group message", data);
     messagecontent.current.value = "";

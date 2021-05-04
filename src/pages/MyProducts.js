@@ -1,20 +1,15 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Tooltip } from "@varld/popover";
+
 import "../css/Myproducts.css";
 import { MdDelete, MdCreate } from "react-icons/md";
 const ServerUrl = "https://my-superi-app.jelastic.metropolia.fi/graphql";
 //const ServerUrl = "http://localhost:3004/graphql";
 const MyProducts = () => {
   const [myProductsdata, setmyProductsdata] = useState([]);
-  const [titleinput, setYitleinput] = useState();
+
   useEffect(() => {
     GetMyProducts();
   }, []);
-
-  const ModifiedTitle = useRef();
-  const ModifiedPrice = useRef();
-  const ModifiedDEscription = useRef();
-  const ModifiedQuantity = useRef();
 
   const [modifyProduct, setmodifyProduct] = useState();
 
