@@ -7,6 +7,7 @@ link to heroku: https://e-comm-magasin.herokuapp.com/  note jelastic might be sl
   1. [Description](#Description)
   2. [Dependencices Used](#TechnologyUsed)
   3. [Installation](#Installation) 
+  4. [what to test](#Test)
   5. [Questions](#Questions)
 
 # DESCRIPTION
@@ -28,6 +29,14 @@ link to heroku: https://e-comm-magasin.herokuapp.com/  note jelastic might be sl
 • Fork this repo and clone to your computer. Next, 'cd magasin-frontend' then run 'npm install' to install all the dependencies listed in package.JSON file. if any problems try to trun 'npm audit fix'. and finaly run 'npm start'.
 
 
+# Test
+````
+1.Register and login with your credentials.
+2.join bid room and chat (also try to create bid in same page bidings).
+3.try to add product to favourites and delete.
+4.add products in profile and also try to modify info.
+5.modify and delete product in myProducts.
+````
 # QUESTIONS
 • If you have any questions, concerns or suggestions please feel free to contact me with the link below.
 GitHub: "zakariaziouziou@gmail.com"
